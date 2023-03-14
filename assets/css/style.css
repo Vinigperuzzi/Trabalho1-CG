@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url("https://webgl2fundamentals.org/webgl/resources/webgl-tutorials.css");
+
+:root{
+    --primary-color: #28496b;
+    --second-color: #b49b85;
+    --dark-color: #0f132e;
+    --light-color: #eac195;
+    --primary-dark-color: #19274e;
+    --primary-color-inv: #886f53;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#uiContainer{
+    position: fixed;
+    padding-top: 250px;
+}
+
+.primeira-pagina {
+    background: var(--primary-color);
+    width: 100vw;
+    height: 96.1vh;
+    padding-top: 2%;
+    box-sizing: content-box;
+}
+
+.primeira-pagina header div{
+    
+    background: var(--second-color);
+    box-sizing: content-box;
+    width: 20%;
+    height: 10%;
+    margin-left: 40%;
+    border-radius: 15px;
+    font-family: 'Open sans', sans-serif;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 2%;
+}
+
+.corpo {
+    max-width: 100%;
+    width: 100%;
+    height: 78%;
+    background: red;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 5%;
+    box-sizing: content-box;
+}
+
+.element {
+    background: blue;
+}
+
+
+@media (min-width: 900px) and (max-width: 1200px){
+    .primeira-pagina header {
+        font-size: 1.5em;
+        padding-top: 2%;
+    }
+}
+
+@media (max-width: 900px){
+    .primeira-pagina header {
+        font-size: 1em;
+        padding-top: 4%;
+    }
+}
