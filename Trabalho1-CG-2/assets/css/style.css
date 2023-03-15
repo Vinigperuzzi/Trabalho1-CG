@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+:root{
+    --primary-color: #28496b;
+    --second-color: #b49b85;
+    --dark-color: #0f132e;
+    --light-color: #eac195;
+    --primary-dark-color: #19274e;
+    --primary-color-inv: #886f53;
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+body {
+    overflow: hidden;
+}
+
+#menu-lateral {
+    position: fixed;
+    width: 15vw;
+    height: 40vh;
+    background: var(--second-color);
+    opacity: 0.6;
+    margin-top: 30vh;
+    margin-left: 0.5vw;
+    border-radius: 20px;
+    box-shadow: var(--dark-color);
+    text-align: center;
+}
+
+#titulo-menu {
+    margin-bottom: 3vh;
+    margin-top: 1.5vh;
+}
+
+.itens-menu {
+    margin-bottom: 1.5vh;
+}
+
+.full-page {
+    height: 100vh;
+    width: 100vw;
+}
+
+header {
+    display: flex;
+    height: 10%;
+    width: 100%;
+    background: var(--primary-color);
+    justify-content: center;
+    align-items: center;
+}
+
+header div {
+    display: flex;
+    height: 90%;
+    width: 99.5%;
+    background: var(--primary-color-inv);
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+header div div{
+    font-size: 4em;
+    color: white;
+    text-decoration: solid;
+    font-style: oblique;
+    
+}
+
+footer {
+    display: flex;
+    height: 10%;
+    width: 100%;
+    background: var(--primary-color);
+    justify-content: center;
+    align-items: center;
+}
+
+footer div {
+    display: flex;
+    height: 90%;
+    width: 99.5%;
+    background: var(--primary-color-inv);
+    justify-content: left;
+    align-items: center;
+    border-radius: 20px;
+}
+
+footer div div {
+    font-size: 2em;
+    color: white;
+    padding-left: 2%;
+}
+
+a {
+    text-decoration: none;
+    color: var(--dark-color);
+}
+
+
+#home-page {
+    width: 100vw;
+    height: 80%;
+    background-image: url(/Trabalho1-CG-2/assets/img/back1.jpg);
+}
+
+.itens-page {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    background: white;
+}
+
+
+@media (max-width: 1200px) or (max-height: 900px){
+    *{
+        font-size: 10px;
+    }
+    header div {
+        height: 89%;
+    }
+}
+
+@media (max-height: 480px){
+    * {
+        font-size: 5px;
+    }
+    header div {
+        width: 99.7%;
+    }
+}
