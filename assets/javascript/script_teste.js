@@ -231,7 +231,7 @@ function main() {
     var count = 16 * 6;
     gl.drawArrays(primitiveType, offset, count);
 
-    if (mutex){
+   if (mutex){
       rotation[1] += degToRad(2);
       matrix = m4.yRotate(matrix, rotation[1])
       requestAnimationFrame(drawScene);
@@ -309,7 +309,7 @@ function setGeometry(gl) {
 
           // left column back
             0,   0,  30,
-           30,   0,  30,
+            30,   0,  30,
             0, 150,  30,
             0, 150,  30,
            30,   0,  30,
