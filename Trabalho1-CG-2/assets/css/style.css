@@ -137,10 +137,10 @@ a {
     z-index: 1;
     left: 0;
     content: "";
-    width: 15%;
+    width: 10%;
     height: 46%;
     margin-left: 16vw;
-    background: linear-gradient(90deg, hsla(0, 0%, 96.9%, 0.99), hsla(0, 0%, 96.9%, 0)  99%);
+    background: linear-gradient(90deg, hsla(0, 0%, 97%, 0.99), hsla(0, 0%, 96.9%, 0)  99%);
     border-radius: 20px;
 }
 
@@ -149,7 +149,7 @@ a {
     z-index: 1;
     right: 0;
     content: "";
-    width: 15%;
+    width: 10%;
     height: 46%;
     background: linear-gradient(90deg, hsla(0, 0%, 96.9%, 0), hsla(0, 0%, 96.9%, 0.99) 99%);
     border-radius: 20px;
