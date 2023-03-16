@@ -41,6 +41,10 @@ body {
     margin-bottom: 1.5vh;
 }
 
+.itens-menu a {
+    font-size: 1.5em;
+}
+
 .full-page {
     height: 100vh;
     width: 100vw;
@@ -210,6 +214,14 @@ canvas {
     background: var(--primary-dark-color);
     color: white;
 }
+
+#carrinho {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    background: var(--primary-dark-color);
+    color: white;
+    }
 
 
 @media (max-width: 1200px) or (max-height: 900px){
