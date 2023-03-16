@@ -29,6 +29,7 @@ body {
     border-radius: 20px;
     box-shadow: var(--dark-color);
     text-align: center;
+    box-shadow: 0.2vw 0.2vw 0.2vw var(--dark-color);
 }
 
 #titulo-menu {
@@ -109,11 +110,105 @@ a {
     background-image: url(/Trabalho1-CG-2/assets/img/back1.jpg);
 }
 
+#slider-conteiner{
+    width: 100%;
+    height: 90%;
+    background: var(--primary-dark-color);
+    display: flex;
+}
+
+.slider {
+    display: flex;
+    height: 50%;
+    margin-top: 20vh;
+    margin-left: 16vw;
+    overflow: hidden;
+    align-items: center;
+    background: var(--second-color);
+    border-radius: 20px;
+}
+
+.slider::before{
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    content: "";
+    width: 15%;
+    height: 46%;
+    margin-left: 16vw;
+    background: linear-gradient(90deg, hsla(0, 0%, 96.9%, 0.99), hsla(0, 0%, 96.9%, 0)  99%);
+    border-radius: 20px;
+}
+
+.slider::after{
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    content: "";
+    width: 15%;
+    height: 46%;
+    background: linear-gradient(90deg, hsla(0, 0%, 96.9%, 0), hsla(0, 0%, 96.9%, 0.99) 99%);
+    border-radius: 20px;
+}
+
+.slider .slide-track {
+    display: flex;
+    height: 50vh;
+    animation: scroll 15s linear infinite;          /*AQUI OS TEMPOS MEU IRMÃO!!!*/
+    -webkit-animation: scroll 15s linear infinite;
+    width: calc(18.7vw * 10);
+}
+
+.slider .slide {
+    display: flex;
+    width: 90%;
+    height: 90%;
+}
+
+.slider .slide div{
+    padding: 10px;
+    height: 50%;
+    width: 15vw;
+    margin-top: 14vh;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.element {
+    z-index: 4;
+    width: 80vh;
+    height: 80vw;
+    background: var(--primary-color);
+    margin: 1.5vw;
+    border-radius: 50px;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 20px;
+}
+
+@keyframes scroll{
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+
+    100% {
+        -webkit-transform: translateX(calc(-18.8vw * 5));
+        transform: translateX(calc(-18.8vw * 5));
+    }
+}
+
 .itens-page {
     height: 100vh;
     width: 100vw;
     display: flex;
-    background: white;
+    background: var(--primary-dark-color);
+    color: white;
 }
 
 
