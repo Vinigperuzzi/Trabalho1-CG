@@ -68,16 +68,31 @@ function main() {
 
   for (let i = 0; i<10; i++){
     let name = `#canvas${i}`;
-    draw1(name);
+    let tx = 110; let ty = 60; let tz = 0;
+    let rx = 5; let ry = 0; let rz = -5;
+    let sx = 0.6; let sy = 0.6; let sz = 0.6;
+    let animation = true;
+    draw1(name, tx, ty, tz, rx, ry, rz, sx, sy, sz, animation);
   }
   for (let i = 0; i<5; i++){
     let nameItem = `#item-canvas${i}`;
-    draw1(nameItem);
+    let tx = 550; let ty = 220; let tz = 0;
+    let rx = 1; let ry = 0; let rz = 0;
+    let sx = 1; let sy = 1; let sz = 1;
+    let animation = false;
+    draw1(nameItem, tx, ty, tz, rx, ry, rz, sx, sy, sz, animation);
   }
 
 }
 
-function draw1(canvasName){
+/*A chamada da função é feita passando:
+O nome do canvas a ser desenhado;
+O deslocamento em X, Y e Z;
+A rotação em X, Y e Z;
+A escala em X, Y e Z;
+E um boleano se deve animar ou não (Talvez evolua para um inteiro para setar mais de um tipo de animação)
+ */
+function draw1(canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz,  animation){
   let canvas = document.querySelector(`${canvasName}`);
   let gl = canvas.getContext("webgl2");
   if (!gl) {
@@ -94,13 +109,13 @@ function draw1(canvasName){
   gl.bindVertexArray(vao);
   gl.enableVertexAttribArray(positionAttributeLocation);
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  setGeometry(gl);
+  setGeometry(gl);      //ARRUMAR UM JEITO DE PASSAR ISSO POR PARÂMETRO, OU SELECIONAR POR PARÂMETRO
 
-  var size = 3;          // 3 components per iteration
-  var type = gl.FLOAT;   // the data is 32bit floats
-  var normalize = false; // don't normalize the data
-  var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
-  var offset = 0;        // start at the beginning of the buffer
+  var size = 3;          
+  var type = gl.FLOAT;   
+  var normalize = false; 
+  var stride = 0;        
+  var offset = 0;        
   gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
   
   let colorBuffer = gl.createBuffer();
@@ -109,11 +124,11 @@ function draw1(canvasName){
 
   gl.enableVertexAttribArray(colorAttributeLocation);
 
-  var size = 3;          // 3 components per iteration
-  var type = gl.UNSIGNED_BYTE;   // the data is 8bit unsigned bytes
-  var normalize = true;  // convert from 0-255 to 0.0-1.0
-  var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next color
-  var offset = 0;        // start at the beginning of the buffer
+  var size = 3;          
+  var type = gl.UNSIGNED_BYTE;   
+  var normalize = true;  
+  var stride = 0;        
+  var offset = 0;        
   gl.vertexAttribPointer(
       colorAttributeLocation, size, type, normalize, stride, offset);
 
@@ -125,9 +140,9 @@ function draw1(canvasName){
     return d * Math.PI / 180;
   }
   
-  let translation = [110, 45, 0];
-  let rotation = [degToRad(5), degToRad(0), degToRad(-5)];
-  let scale = [1, 1, 1];
+  let translation = [tx, ty, tz];
+  let rotation = [degToRad(rx), degToRad(ry), degToRad(rz)];
+  let scale = [sx, sy, sz];
 
   drawScene();
 
@@ -161,9 +176,11 @@ function draw1(canvasName){
     let count = 16 * 6;
     gl.drawArrays(primitiveType, offset, count);
     
-    rotation[1] += degToRad(1);
-    matrix = m4.yRotate(matrix, rotation[1])
-    requestAnimationFrame(drawScene);
+    if (animation){ // && mutex (setando ao final da execução e sendo desativado no boilerplate)
+      rotation[1] += degToRad(1);
+      matrix = m4.yRotate(matrix, rotation[1])
+      requestAnimationFrame(drawScene);
+    }
 
   }  
 }
