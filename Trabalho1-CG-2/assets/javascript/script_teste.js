@@ -64,82 +64,74 @@ function createProgram(gl, vertexShader, fragmentShader){
   gl.deleteProgram(program);
 }
 
-function radToDeg(r) {
-  return r * 180 / Math.PI;
-}
-
-function degToRad(d) {
-  return d * Math.PI / 180;
-}
-
-let translation = [800, 250, 0];
-let rotation = [degToRad(20), degToRad(10), degToRad(0)];
-let scale = [1, 1, 1];
-
 function main() {
-  let canvas = [];
-  let gl = [];
-  let vertexShader = [];
-  let fragmentShader = [];
-  let program = [];
-  let positionAttributeLocation = [];
-  let colorAttributeLocation = [];
-  let matrixLocation = [];
-  let positionBuffer = [];
-  let vao = [];
-  let colorBuffer = [];
 
-  for (let i = 0; i < 5; i++){
-    canvas[i] = document.querySelector(`#canvas${i}`);
-    gl[i] = canvas[i].getContext("webgl2");
-    if (!gl[i]) {
-      throw("Não foi possível coletar o contexto do GL")
-      return;
-    }
-    vertexShader[i] = createShader(gl[i], gl[i].VERTEX_SHADER, vertexShaderSource);
-    fragmentShader[i] = createShader(gl[i], gl[i].FRAGMENT_SHADER, fragmentShaderSource);
-    program[i] = createProgram(gl[i], vertexShader[i], fragmentShader[i]);
-    positionAttributeLocation[i] = gl[i].getAttribLocation(program[i], "a_position");
-    colorAttributeLocation[i] = gl[i].getAttribLocation(program[i], "a_color");
-    matrixLocation[i] = gl[i].getUniformLocation(program[i], "u_matrix");
-    positionBuffer[i] = gl[i].createBuffer();
-    vao[i] = gl[i].createVertexArray();
-    gl[i].bindVertexArray(vao[i]);
-    gl[i].enableVertexAttribArray(positionAttributeLocation[i]);
-    gl[i].bindBuffer(gl[i].ARRAY_BUFFER, positionBuffer[i]);
-    setGeometry(gl[i]);
+  draw1();
+  draw2();
+  draw3();
 
-    var size = 3;          // 3 components per iteration
-    var type = gl.FLOAT;   // the data is 32bit floats
-    var normalize = false; // don't normalize the data
-    var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
-    var offset = 0;        // start at the beginning of the buffer
-    gl[i].vertexAttribPointer(
-        positionAttributeLocation, size, type, normalize, stride, offset);
-    //=============================================
-    colorBuffer[i] = gl[i].createBuffer();
-    gl[i].bindBuffer(gl[i].ARRAY_BUFFER, colorBuffer[i]);
-    setColors(gl[i]);
-  
-    gl[i].enableVertexAttribArray(colorAttributeLocation[i]);
-  
-    var size = 3;          // 3 components per iteration
-    var type = gl.UNSIGNED_BYTE;   // the data is 8bit unsigned bytes
-    var normalize = true;  // convert from 0-255 to 0.0-1.0
-    var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next color
-    var offset = 0;        // start at the beginning of the buffer
-    gl[i].vertexAttribPointer(
-        colorAttributeLocation, size, type, normalize, stride, offset);
+}
+
+function draw1(){
+  let canvas = document.querySelector(`#canvas0`);
+  let gl = canvas.getContext("webgl2");
+  if (!gl) {
+    return;
   }
+  let vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+  let fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+  let program = createProgram(gl, vertexShader, fragmentShader);
+  let positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+  let colorAttributeLocation = gl.getAttribLocation(program, "a_color");
+  let matrixLocation = gl.getUniformLocation(program, "u_matrix");
+  let positionBuffer = gl.createBuffer();
+  let vao = gl.createVertexArray();
+  gl.bindVertexArray(vao);
+  gl.enableVertexAttribArray(positionAttributeLocation);
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  setGeometry(gl);
 
-    drawScene(gl[0], program[0], vao[0], matrixLocation[0]);
+  var size = 3;          // 3 components per iteration
+  var type = gl.FLOAT;   // the data is 32bit floats
+  var normalize = false; // don't normalize the data
+  var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
+  var offset = 0;        // start at the beginning of the buffer
+  gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
+  
+  let colorBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+  setColors(gl);
 
-  function drawScene(gl, program, vao, matrixLocation) {
+  gl.enableVertexAttribArray(colorAttributeLocation);
+
+  var size = 3;          // 3 components per iteration
+  var type = gl.UNSIGNED_BYTE;   // the data is 8bit unsigned bytes
+  var normalize = true;  // convert from 0-255 to 0.0-1.0
+  var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next color
+  var offset = 0;        // start at the beginning of the buffer
+  gl.vertexAttribPointer(
+      colorAttributeLocation, size, type, normalize, stride, offset);
+
+  function radToDeg(r) {
+    return r * 180 / Math.PI;
+  }
+  
+  function degToRad(d) {
+    return d * Math.PI / 180;
+  }
+  
+  let translation = [110, 45, 0];
+  let rotation = [degToRad(5), degToRad(0), degToRad(-5)];
+  let scale = [1, 1, 1];
+
+  drawScene();
+
+  function drawScene() {
     webglUtils.resizeCanvasToDisplaySize(gl.canvas);
   
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
   
-    gl.clearColor(0, 0, 0, 0);
+    gl.clearColor(1, 1, 1, 1);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   
     gl.enable(gl.DEPTH_TEST);
@@ -159,18 +151,204 @@ function main() {
   
     gl.uniformMatrix4fv(matrixLocation, false, matrix);
   
+  
     let primitiveType = gl.TRIANGLES;
     let offset = 0;
     let count = 16 * 6;
     gl.drawArrays(primitiveType, offset, count);
     
-  }
+    rotation[1] += degToRad(1);
+    matrix = m4.yRotate(matrix, rotation[1])
+    requestAnimationFrame(drawScene);
 
-  console.log(canvas, gl);
-  console.log(program);
-  console.log(positionAttributeLocation, colorAttributeLocation, positionBuffer);
-
+  }  
 }
+
+function draw2(){
+  let canvas = document.querySelector(`#canvas00`);
+  let gl = canvas.getContext("webgl2");
+  if (!gl) {
+    return;
+  }
+  let vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+  let fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+  let program = createProgram(gl, vertexShader, fragmentShader);
+  let positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+  let colorAttributeLocation = gl.getAttribLocation(program, "a_color");
+  let matrixLocation = gl.getUniformLocation(program, "u_matrix");
+  let positionBuffer = gl.createBuffer();
+  let vao = gl.createVertexArray();
+  gl.bindVertexArray(vao);
+  gl.enableVertexAttribArray(positionAttributeLocation);
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  setGeometry(gl);
+
+  var size = 3;          // 3 components per iteration
+  var type = gl.FLOAT;   // the data is 32bit floats
+  var normalize = false; // don't normalize the data
+  var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
+  var offset = 0;        // start at the beginning of the buffer
+  gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
+  
+  let colorBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+  setColors(gl);
+
+  gl.enableVertexAttribArray(colorAttributeLocation);
+
+  var size = 3;          // 3 components per iteration
+  var type = gl.UNSIGNED_BYTE;   // the data is 8bit unsigned bytes
+  var normalize = true;  // convert from 0-255 to 0.0-1.0
+  var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next color
+  var offset = 0;        // start at the beginning of the buffer
+  gl.vertexAttribPointer(
+      colorAttributeLocation, size, type, normalize, stride, offset);
+
+  function radToDeg(r) {
+    return r * 180 / Math.PI;
+  }
+  
+  function degToRad(d) {
+    return d * Math.PI / 180;
+  }
+  
+  let translation = [110, 45, 0];
+  let rotation = [degToRad(5), degToRad(0), degToRad(-5)];
+  let scale = [1, 1, 1];
+
+  drawScene();
+
+  function drawScene() {
+    webglUtils.resizeCanvasToDisplaySize(gl.canvas);
+  
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+  
+    gl.clearColor(1, 1, 1, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  
+    gl.enable(gl.DEPTH_TEST);
+  
+    gl.enable(gl.CULL_FACE);
+  
+    gl.useProgram(program);
+  
+    gl.bindVertexArray(vao);
+  
+    var matrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
+    matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
+    matrix = m4.xRotate(matrix, rotation[0]);
+    matrix = m4.yRotate(matrix, rotation[1]);
+    matrix = m4.zRotate(matrix, rotation[2]);
+    matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
+  
+    gl.uniformMatrix4fv(matrixLocation, false, matrix);
+  
+  
+    let primitiveType = gl.TRIANGLES;
+    let offset = 0;
+    let count = 16 * 6;
+    gl.drawArrays(primitiveType, offset, count);
+    
+    rotation[1] += degToRad(1);
+    matrix = m4.yRotate(matrix, rotation[1])
+    requestAnimationFrame(drawScene);
+
+  }  
+}
+
+
+function draw3(){
+  let canvas = document.querySelector(`#item-canvas0`);
+  let gl = canvas.getContext("webgl2");
+  if (!gl) {
+    return;
+  }
+  let vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+  let fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+  let program = createProgram(gl, vertexShader, fragmentShader);
+  let positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+  let colorAttributeLocation = gl.getAttribLocation(program, "a_color");
+  let matrixLocation = gl.getUniformLocation(program, "u_matrix");
+  let positionBuffer = gl.createBuffer();
+  let vao = gl.createVertexArray();
+  gl.bindVertexArray(vao);
+  gl.enableVertexAttribArray(positionAttributeLocation);
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  setGeometry(gl);
+
+  var size = 3;          // 3 components per iteration
+  var type = gl.FLOAT;   // the data is 32bit floats
+  var normalize = false; // don't normalize the data
+  var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
+  var offset = 0;        // start at the beginning of the buffer
+  gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
+  
+  let colorBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+  setColors(gl);
+
+  gl.enableVertexAttribArray(colorAttributeLocation);
+
+  var size = 3;          // 3 components per iteration
+  var type = gl.UNSIGNED_BYTE;   // the data is 8bit unsigned bytes
+  var normalize = true;  // convert from 0-255 to 0.0-1.0
+  var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next color
+  var offset = 0;        // start at the beginning of the buffer
+  gl.vertexAttribPointer(
+      colorAttributeLocation, size, type, normalize, stride, offset);
+
+  function radToDeg(r) {
+    return r * 180 / Math.PI;
+  }
+  
+  function degToRad(d) {
+    return d * Math.PI / 180;
+  }
+  
+  let translation = [600, 230, 0];
+  let rotation = [degToRad(5), degToRad(0), degToRad(-5)];
+  let scale = [1, 1, 1];
+
+  drawScene();
+
+  function drawScene() {
+    webglUtils.resizeCanvasToDisplaySize(gl.canvas);
+  
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+  
+    gl.clearColor(1, 1, 1, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  
+    gl.enable(gl.DEPTH_TEST);
+  
+    gl.enable(gl.CULL_FACE);
+  
+    gl.useProgram(program);
+  
+    gl.bindVertexArray(vao);
+  
+    var matrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
+    matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
+    matrix = m4.xRotate(matrix, rotation[0]);
+    matrix = m4.yRotate(matrix, rotation[1]);
+    matrix = m4.zRotate(matrix, rotation[2]);
+    matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
+  
+    gl.uniformMatrix4fv(matrixLocation, false, matrix);
+  
+  
+    let primitiveType = gl.TRIANGLES;
+    let offset = 0;
+    let count = 16 * 6;
+    gl.drawArrays(primitiveType, offset, count);
+    
+    rotation[1] += degToRad(1);
+    matrix = m4.yRotate(matrix, rotation[1])
+    requestAnimationFrame(drawScene);
+
+  }  
+}
+
 
 
 
