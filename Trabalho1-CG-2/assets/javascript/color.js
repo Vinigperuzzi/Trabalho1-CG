@@ -1,3 +1,7 @@
+/*Em algum momento na main eu faço setColor passando o gl, aqui podem ficar todos os vértices e
+conforme for chamado na main pode-se diferenciar as funções aqui. Tipo setF, setT, setO, set!.
+Todas são iguais, com apenas as diferenças de mudar o nome e as coordenadas das cores*/
+
 function setColors(gl) {
     gl.bufferData(
         gl.ARRAY_BUFFER,
