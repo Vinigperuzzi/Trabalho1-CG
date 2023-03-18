@@ -13,6 +13,7 @@
     margin: 0px;
     padding: 0px;
     border: 0px;
+    font-family: 'Open sans', sans-serif;
 }
 body {
     overflow: hidden;
@@ -32,6 +33,11 @@ body {
     box-shadow: 0.2vw 0.2vw 0.2vw var(--dark-color);
 }
 
+#menu-lateral h1 {
+    font-size: 1.6em;
+    margin-bottom: 0.6vw;
+}
+
 #titulo-menu {
     margin-bottom: 3vh;
     margin-top: 1.5vh;
@@ -42,7 +48,7 @@ body {
 }
 
 .itens-menu a {
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
 
 .full-page {
@@ -109,9 +115,31 @@ a {
 
 
 #home-page {
+    display: flex;
     width: 100vw;
     height: 80%;
     background-image: url(/Trabalho1-CG-2/assets/img/back1.jpg);
+}
+
+#home-page p {
+    box-sizing: border-box;
+    width: 30vw;
+    height: 30vw;
+    margin-left: calc(50vw - 15vw);
+    margin-top: calc(25vh - 15vh);
+    background: var(--second-color);
+    border-radius: 20px;
+    box-shadow: 10px 10px 10px var(--dark-color);
+    text-align: center;
+    padding: 3vh 1.7vw 0vh 1.7vw;
+    color: var(--primary-dark-color);
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#h1-msg {
+    font-size: 1.6em;
+    text-transform: uppercase;
 }
 
 #slider-conteiner{
@@ -158,7 +186,7 @@ a {
 .slider .slide-track {
     display: flex;
     height: 50vh;
-    animation: scroll 15s linear infinite;          /*AQUI OS TEMPOS MEU IRMÃO!!!*/
+    animation: scroll 15s linear infinite;          
     -webkit-animation: scroll 15s linear infinite;
     width: calc(18.7vw * 10);
 }
@@ -242,7 +270,12 @@ a {
     background: blue;
 }
 
-.ui-hud{
+
+/*====================================================================
+Lógica do UI
+=======================================================================*/
+
+.ui-hud{  /*== #uiContainer*/
     width: 18vw;
     height: 65vh;
     margin-top: 20vh;
@@ -253,6 +286,10 @@ a {
     background: var(--second-color);
     opacity: 0.6;
 }
+
+/*====================================================================
+Fim da lógica do UI
+=======================================================================*/
 
 #carrinho {
     height: 100vh;
@@ -268,10 +305,19 @@ a {
         height: 89%;
     }
     .itens-menu a {
-        font-size: 1.5em;
+        font-size: 1em;
     }
-    h1{
-        font-size: 2em;
+    #menu-lateral h1{
+        font-size: 1.4em;
+        margin-bottom: 1.3vw;
+    }
+    #home-page p {
+        font-size: 1.23em;
+        font-weight: bold;
+    }
+    
+    #h1-msg {
+        font-size: 1.6em;
     }
 }
 

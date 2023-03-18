@@ -1,5 +1,14 @@
 "use strict";
 
+
+let nomeBemVido = window.prompt("Informe o seu nome para uma experiência mais personalizada!!");
+const nomeP = document.querySelector("#h1-msg");
+if (nomeBemVido == null){
+    nomeBemVido = 'Visitante';
+}
+nomeP.innerHTML += `, ${nomeBemVido}!`;
+
+
 var vertexShaderSource = `#version 300 es
 
 // an attribute is an input (in) to a vertex shader.
@@ -72,7 +81,7 @@ function main() {
     let rx = 5; let ry = 0; let rz = -5;
     let sx = 0.6; let sy = 0.6; let sz = 0.6;
     let animation = true;
-    draw1(name, tx, ty, tz, rx, ry, rz, sx, sy, sz, animation);
+    draw1(i, name, tx, ty, tz, rx, ry, rz, sx, sy, sz, animation);
   }
   for (let i = 0; i<5; i++){
     let nameItem = `#item-canvas${i}`;
@@ -80,7 +89,7 @@ function main() {
     let rx = 1; let ry = 0; let rz = 0;
     let sx = 1; let sy = 1; let sz = 1;
     let animation = false;
-    draw1(nameItem, tx, ty, tz, rx, ry, rz, sx, sy, sz, animation);
+    draw1(i, nameItem, tx, ty, tz, rx, ry, rz, sx, sy, sz, animation);
   }
 
 }
@@ -92,7 +101,7 @@ A rotação em X, Y e Z;
 A escala em X, Y e Z;
 E um boleano se deve animar ou não (Talvez evolua para um inteiro para setar mais de um tipo de animação)
  */
-function draw1(canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz,  animation){
+function draw1(i, canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz,  animation){
   let canvas = document.querySelector(`${canvasName}`);
   let gl = canvas.getContext("webgl2");
   if (!gl) {
@@ -145,6 +154,39 @@ function draw1(canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz,  animation){
   let scale = [sx, sy, sz];
 
   drawScene();
+
+  webglLessonsUI.setupSlider(`#x${i}`,      {value: translation[0], slide: updatePosition(0), max: gl.canvas.width });
+  webglLessonsUI.setupSlider(`#y${i}`,      {value: translation[1], slide: updatePosition(1), max: gl.canvas.height});
+  webglLessonsUI.setupSlider(`#z${i}`,      {value: translation[2], slide: updatePosition(2), max: gl.canvas.height});
+  webglLessonsUI.setupSlider(`#angleX${i}`, {value: radToDeg(rotation[0]), slide: updateRotation(0), max: 360});
+  webglLessonsUI.setupSlider(`#angleY${i}`, {value: radToDeg(rotation[1]), slide: updateRotation(1), max: 360});
+  webglLessonsUI.setupSlider(`#angleZ${i}`, {value: radToDeg(rotation[2]), slide: updateRotation(2), max: 360});
+  webglLessonsUI.setupSlider(`#scaleX${i}`, {value: scale[0], slide: updateScale(0), min: -5, max: 5, step: 0.01, precision: 2});
+  webglLessonsUI.setupSlider(`#scaleY${i}`, {value: scale[1], slide: updateScale(1), min: -5, max: 5, step: 0.01, precision: 2});
+  webglLessonsUI.setupSlider(`#scaleZ${i}`, {value: scale[2], slide: updateScale(2), min: -5, max: 5, step: 0.01, precision: 2});
+
+  function updatePosition(index) {
+    return function(event, ui) {
+      translation[index] = ui.value;
+      drawScene();
+    };
+  }
+
+  function updateRotation(index) {
+    return function(event, ui) {
+      var angleInDegrees = ui.value;
+      var angleInRadians = degToRad(angleInDegrees);
+      rotation[index] = angleInRadians;
+      drawScene();
+    };
+  }
+
+  function updateScale(index) {
+    return function(event, ui) {
+      scale[index] = ui.value;
+      drawScene();
+    };
+  }
 
   function drawScene() {
     webglUtils.resizeCanvasToDisplaySize(gl.canvas);
