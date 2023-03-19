@@ -8,7 +8,6 @@ if (nomeBemVido == null){
 }
 nomeP.innerHTML += `, ${nomeBemVido}!`;
 
-
 var vertexShaderSource = `#version 300 es
 
 // an attribute is an input (in) to a vertex shader.
@@ -91,6 +90,10 @@ function main() {
     let animation = false;
     draw1(i, nameItem, tx, ty, tz, rx, ry, rz, sx, sy, sz, animation);
   }
+  let tx = 110; let ty = 60; let tz = 0;
+  let rx = 1; let ry = 0; let rz = 0;
+  let sx = 1; let sy = 1; let sz = 1;
+  draw(tx, ty, tz, rx, ry, rz, sx, sy, sz);
 
 }
 
@@ -215,7 +218,7 @@ function draw1(i, canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz,  animation){
   
     let primitiveType = gl.TRIANGLES;
     let offset = 0;
-    let count = 16 * 6;
+    let count = 16 * 6;           //ISSO DEVE SER VARIÁVEL///
     gl.drawArrays(primitiveType, offset, count);
     
     if (animation){ // && mutex (setando ao final da execução e sendo desativado no boilerplate)
@@ -227,6 +230,114 @@ function draw1(i, canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz,  animation){
   }  
 }
 
+
+//================================================================================================
+//Início do carrinho
+//================================================================================================
+
+function draw(tx, ty, tz, rx, ry, rz, sx, sy, sz){
+  let canvas = document.querySelector(`#canvas-carrinho`);
+  let gl = canvas.getContext("webgl2");
+  if (!gl) {
+    return;
+  }
+  let vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+  let fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+  let program = createProgram(gl, vertexShader, fragmentShader);
+  let positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+  let colorAttributeLocation = gl.getAttribLocation(program, "a_color");
+  let matrixLocation = gl.getUniformLocation(program, "u_matrix");
+  let positionBuffer = gl.createBuffer();
+  let vao = gl.createVertexArray();
+  gl.bindVertexArray(vao);
+  gl.enableVertexAttribArray(positionAttributeLocation);
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  setGeometry(gl);      //ARRUMAR UM JEITO DE PASSAR ISSO POR PARÂMETRO, OU SELECIONAR POR PARÂMETRO
+
+  var size = 3;          
+  var type = gl.FLOAT;   
+  var normalize = false; 
+  var stride = 0;        
+  var offset = 0;        
+  gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
+  
+  let colorBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+  setColors(gl);
+
+  gl.enableVertexAttribArray(colorAttributeLocation);
+
+  var size = 3;          
+  var type = gl.UNSIGNED_BYTE;   
+  var normalize = true;  
+  var stride = 0;        
+  var offset = 0;        
+  gl.vertexAttribPointer(
+      colorAttributeLocation, size, type, normalize, stride, offset);
+
+  function radToDeg(r) {
+    return r * 180 / Math.PI;
+  }
+  
+  function degToRad(d) {
+    return d * Math.PI / 180;
+  }
+  
+  let translation = [tx, ty, tz];
+  let rotation = [degToRad(rx), degToRad(ry), degToRad(rz)];
+  let scale = [sx, sy, sz];
+
+  drawScene();
+
+  function drawScene() {
+    webglUtils.resizeCanvasToDisplaySize(gl.canvas);
+  
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+  
+    gl.clearColor(1, 1, 1, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  
+    gl.enable(gl.DEPTH_TEST);
+  
+    gl.enable(gl.CULL_FACE);
+  
+    gl.useProgram(program);
+  
+    gl.bindVertexArray(vao);
+  
+    var matrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
+    matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
+    matrix = m4.xRotate(matrix, rotation[0]);
+    matrix = m4.yRotate(matrix, rotation[1]);
+    matrix = m4.zRotate(matrix, rotation[2]);
+    matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
+  
+    gl.uniformMatrix4fv(matrixLocation, false, matrix);
+  
+    var primitiveType = gl.TRIANGLES;
+    var offset = 0;
+    var count = 16 * 6;           //ISSO DEVE SER VARIÁVEL///
+    gl.drawArrays(primitiveType, offset, count);
+
+    matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
+    matrix = m4.xRotate(matrix, rotation[0]);
+    matrix = m4.yRotate(matrix, rotation[1]);
+    matrix = m4.zRotate(matrix, rotation[2]);
+    matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
+  
+    gl.uniformMatrix4fv(matrixLocation, false, matrix);
+  
+    var primitiveType = gl.TRIANGLES;
+    var offset = 0;
+    var count = 16 * 6;           //ISSO DEVE SER VARIÁVEL///
+    gl.drawArrays(primitiveType, offset, count);
+
+  }  
+}
+
+//================================================================================================
+//Fim do carrinho
+//================================================================================================
 
 main();
 
