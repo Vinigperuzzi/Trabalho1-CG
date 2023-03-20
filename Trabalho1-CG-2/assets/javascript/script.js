@@ -1,7 +1,8 @@
 "use strict";
 
 
-let nomeBemVido = window.prompt("Informe o seu nome para uma experiência mais personalizada!!");
+//let nomeBemVido = window.prompt("Informe o seu nome para uma experiência mais personalizada!!");
+let nomeBemVido;
 const nomeP = document.querySelector("#h1-msg");
 if (nomeBemVido == null){
     nomeBemVido = 'Visitante';
@@ -79,21 +80,24 @@ function main() {
     let tx = 110; let ty = 60; let tz = 0;
     let rx = 5; let ry = 0; let rz = -5;
     let sx = 0.6; let sy = 0.6; let sz = 0.6;
+    let index = i%5;
     let animation = true;
-    draw1(i, name, tx, ty, tz, rx, ry, rz, sx, sy, sz, animation);
+    draw1(i, name, tx, ty, tz, rx, ry, rz, sx, sy, sz, index, animation);
   }
   for (let i = 0; i<5; i++){
     let nameItem = `#item-canvas${i}`;
     let tx = 550; let ty = 220; let tz = 0;
     let rx = 1; let ry = 0; let rz = 0;
     let sx = 1; let sy = 1; let sz = 1;
+    let index = i%5;
     let animation = false;
-    draw1(i, nameItem, tx, ty, tz, rx, ry, rz, sx, sy, sz, animation);
+    draw1(i, nameItem, tx, ty, tz, rx, ry, rz, sx, sy, sz, index, animation);
   }
   let tx = 110; let ty = 60; let tz = 0;
   let rx = 1; let ry = 0; let rz = 0;
   let sx = 1; let sy = 1; let sz = 1;
-  draw(tx, ty, tz, rx, ry, rz, sx, sy, sz);
+  let index = 0;
+  draw(tx, ty, tz, rx, ry, rz, sx, sy, sz, index);
 
 }
 
@@ -104,7 +108,7 @@ A rotação em X, Y e Z;
 A escala em X, Y e Z;
 E um boleano se deve animar ou não (Talvez evolua para um inteiro para setar mais de um tipo de animação)
  */
-function draw1(i, canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz,  animation){
+function draw1(i, canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz, index, animation){
   let canvas = document.querySelector(`${canvasName}`);
   let gl = canvas.getContext("webgl2");
   if (!gl) {
@@ -121,7 +125,7 @@ function draw1(i, canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz,  animation){
   gl.bindVertexArray(vao);
   gl.enableVertexAttribArray(positionAttributeLocation);
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  setGeometry(gl);      //ARRUMAR UM JEITO DE PASSAR ISSO POR PARÂMETRO, OU SELECIONAR POR PARÂMETRO
+  let count = setGeometry(gl, index);      //ARRUMAR UM JEITO DE PASSAR ISSO POR PARÂMETRO, OU SELECIONAR POR PARÂMETRO
 
   var size = 3;          
   var type = gl.FLOAT;   
@@ -218,7 +222,7 @@ function draw1(i, canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz,  animation){
   
     let primitiveType = gl.TRIANGLES;
     let offset = 0;
-    let count = 16 * 6;           //ISSO DEVE SER VARIÁVEL///
+    //let count agora é o retorno da função setGeometry();
     gl.drawArrays(primitiveType, offset, count);
     
     if (animation){ // && mutex (setando ao final da execução e sendo desativado no boilerplate)
@@ -235,7 +239,7 @@ function draw1(i, canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz,  animation){
 //Início do carrinho
 //================================================================================================
 
-function draw(tx, ty, tz, rx, ry, rz, sx, sy, sz){
+function draw(tx, ty, tz, rx, ry, rz, sx, sy, sz, index){
   let canvas = document.querySelector(`#canvas-carrinho`);
   let gl = canvas.getContext("webgl2");
   if (!gl) {
@@ -252,7 +256,7 @@ function draw(tx, ty, tz, rx, ry, rz, sx, sy, sz){
   gl.bindVertexArray(vao);
   gl.enableVertexAttribArray(positionAttributeLocation);
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  setGeometry(gl);      //ARRUMAR UM JEITO DE PASSAR ISSO POR PARÂMETRO, OU SELECIONAR POR PARÂMETRO
+  count = setGeometry(gl, index);      //ARRUMAR UM JEITO DE PASSAR ISSO POR PARÂMETRO, OU SELECIONAR POR PARÂMETRO
 
   var size = 3;          
   var type = gl.FLOAT;   
@@ -316,8 +320,15 @@ function draw(tx, ty, tz, rx, ry, rz, sx, sy, sz){
   
     var primitiveType = gl.TRIANGLES;
     var offset = 0;
-    var count = 16 * 6;           //ISSO DEVE SER VARIÁVEL///
     gl.drawArrays(primitiveType, offset, count);
+
+    count = setGeometry(gl, 4);
+    var size = 3;          
+    var type = gl.FLOAT;   
+    var normalize = false; 
+    var stride = 0;        
+    var offset = 0;        
+    gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
 
     matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
     matrix = m4.xRotate(matrix, rotation[0]);
@@ -329,7 +340,6 @@ function draw(tx, ty, tz, rx, ry, rz, sx, sy, sz){
   
     var primitiveType = gl.TRIANGLES;
     var offset = 0;
-    var count = 16 * 6;           //ISSO DEVE SER VARIÁVEL///
     gl.drawArrays(primitiveType, offset, count);
 
   }  
