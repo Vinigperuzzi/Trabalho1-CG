@@ -1,3 +1,14 @@
+:root{
+  --primary-color: #28496b;
+  --second-color: #b49b85;
+  --dark-color: #0f132e;
+  --light-color: #eac195;
+  --primary-dark-color: #19274e;
+  --primary-color-inv: #886f53;
+}
+
+
+
 .ui {
   margin-left: 5vw;
   margin-top: 10vh;
@@ -89,6 +100,19 @@ body.iframe {
 }
 .ui {
     width: 200px;
+}
+
+.buy {
+  position: relative;
+  width: 8vw;
+  height: 5vh;
+  border-radius: 20px;
+  background: var(--second-color);
+  color: black;
+  text-align: center;
+  top: 90vh;
+  right: 50vw;
+  padding-top: 1vh;
 }
 
 @media (max-width: 390px) {
