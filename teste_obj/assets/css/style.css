@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+:root{
+    --primary-color: #28496b;
+    --second-color: #b49b85;
+    --dark-color: #0f132e;
+    --light-color: #eac195;
+    --primary-dark-color: #19274e;
+    --primary-color-inv: #886f53;
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font-family: 'Open sans', sans-serif;
+}
+body {
+    overflow: hidden;
+}
+
+#menu-lateral {
+    position: fixed;
+    width: 15vw;
+    height: 40vh;
+    background: var(--second-color);
+    opacity: 0.6;
+    margin-top: 30vh;
+    margin-left: 0.5vw;
+    border-radius: 20px;
+    box-shadow: var(--dark-color);
+    text-align: center;
+    box-shadow: 0.2vw 0.2vw 0.2vw var(--dark-color);
+}
+
+#menu-lateral h1 {
+    font-size: 1.6em;
+    margin-bottom: 0.6vw;
+}
+
+#titulo-menu {
+    margin-bottom: 3vh;
+    margin-top: 1.5vh;
+}
+
+.itens-menu {
+    margin-bottom: 1.5vh;
+}
+
+.itens-menu a {
+    font-size: 1.1em;
+}
+
+.full-page {
+    height: 100vh;
+    width: 100vw;
+}
+
+header {
+    display: flex;
+    height: 10%;
+    width: 100%;
+    background: var(--primary-color);
+    justify-content: center;
+    align-items: center;
+}
+
+header div {
+    display: flex;
+    height: 90%;
+    width: 99.5%;
+    background: var(--primary-color-inv);
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+header div div{
+    font-size: 4em;
+    color: white;
+    text-decoration: solid;
+    font-style: oblique;
+    
+}
+
+footer {
+    display: flex;
+    height: 10%;
+    width: 100%;
+    background: var(--primary-color);
+    justify-content: center;
+    align-items: center;
+}
+
+footer div {
+    display: flex;
+    height: 90%;
+    width: 99.5%;
+    background: var(--primary-color-inv);
+    justify-content: left;
+    align-items: center;
+    border-radius: 20px;
+}
+
+footer div div {
+    font-size: 2em;
+    color: white;
+    padding-left: 2%;
+}
+
+a {
+    text-decoration: none;
+    color: var(--dark-color);
+}
+
+
+#home-page {
+    display: flex;
+    width: 100vw;
+    height: 80%;
+    background-image: url(/Trabalho1-CG-2/assets/img/back1.jpg);
+}
+
+#home-page p {
+    box-sizing: border-box;
+    width: 30vw;
+    height: 30vw;
+    margin-left: calc(50vw - 15vw);
+    margin-top: calc(25vh - 15vh);
+    background: var(--second-color);
+    border-radius: 20px;
+    box-shadow: 10px 10px 10px var(--dark-color);
+    text-align: center;
+    padding: 3vh 1.7vw 0vh 1.7vw;
+    color: var(--primary-dark-color);
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#h1-msg {
+    font-size: 1.6em;
+    text-transform: uppercase;
+}
+
+#slider-conteiner{
+    width: 100%;
+    height: 90%;
+    background: var(--primary-dark-color);
+    display: flex;
+}
+
+.slider {
+    display: flex;
+    height: 50%;
+    margin-top: 20vh;
+    margin-left: 16vw;
+    overflow: hidden;
+    align-items: center;
+    background: var(--second-color);
+    border-radius: 20px;
+}
+
+.slider::before{
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    content: "";
+    width: 8%;
+    height: 46%;
+    margin-left: 16vw;
+    background: linear-gradient(90deg, #19274e, #19274e00 99%);
+    border-radius: 20px;
+}
+
+.slider::after{
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    content: "";
+    width: 8%;
+    height: 46%;
+    background: linear-gradient(90deg, #19274e00, #19274e 99%);
+    border-radius: 20px;
+}
+
+.slider .slide-track {
+    display: flex;
+    height: 50vh;
+    animation: scroll 15s linear infinite;          
+    -webkit-animation: scroll 15s linear infinite;
+    width: calc(18.7vw * 10);
+}
+
+.slider .slide {
+    display: flex;
+    width: 90%;
+    height: 90%;
+}
+
+.slider .slide div{
+    padding: 10px;
+    height: 50%;
+    width: 15vw;
+    margin-top: 14vh;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.element {
+    z-index: 4;
+    width: 80vh;
+    height: 80vw;
+    background: var(--primary-color);
+    margin: 1.5vw;
+    border-radius: 50px;
+}
+
+.element canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.itens-page {
+    width: 100vw;
+    height: 100vw;
+    display: flex;
+}
+
+
+@keyframes scroll{
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+
+    100% {
+        -webkit-transform: translateX(calc(-18.8vw * 5));
+        transform: translateX(calc(-18.8vw * 5));
+    }
+}
+
+.itens-page {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    background: var(--primary-dark-color);
+    color: white;
+}
+
+.canvas-page-class {
+    width: 65vw;
+    height: 65vh;
+    margin-left: 16vw;
+    margin-top: 20vh;
+    border-radius: 40px;
+    box-shadow: 20px 20px 20px black;
+}
+
+.canvas-page-class div {
+    height: 100%;
+    width: 100%;
+}
+
+.canvas-page-class canvas{
+    border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    background: blue;
+}
+
+
+/*====================================================================
+Lógica do UI
+=======================================================================*/
+
+.ui-hud{  /*== #uiContainer*/
+    width: 18vw;
+    height: 65vh;
+    margin-top: 20vh;
+    margin-left: 0.5vw;
+    border-radius: 20px;
+    box-shadow: 20px 20px 20px black;
+    justify-self: end;
+    background: var(--second-color);
+    opacity: 0.6;
+}
+
+/*====================================================================
+Fim da lógica do UI
+=======================================================================*/
+
+#carrinho {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    background: var(--primary-dark-color);
+}
+@media (max-width: 1200px) or (max-height: 900px){
+    *{
+        font-size: 10px;
+    }
+    header div {
+        height: 89%;
+    }
+    .itens-menu a {
+        font-size: 1em;
+    }
+    #menu-lateral h1{
+        font-size: 1.4em;
+        margin-bottom: 1.3vw;
+    }
+    #home-page p {
+        font-size: 1.23em;
+        font-weight: bold;
+    }
+    
+    #h1-msg {
+        font-size: 1.6em;
+    }
+}
+
+@media (max-height: 480px){
+    * {
+        font-size: 5px;
+    }
+    header div {
+        width: 99.7%;
+    }
+}
