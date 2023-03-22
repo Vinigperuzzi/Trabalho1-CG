@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalho de CG</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<div id="menu-lateral">
+    <div>
+        <p><h1 id="titulo-menu">Menu de navegação</h1></p>
+        <p class="itens-menu"><a href="#topo">Home-page</a></p>
+        <p class="itens-menu"><a href="#catalogo">Catálogo</a></p>
+        <p class="itens-menu"><a href="#primeiro-carro">Primeiro veículo</a></p>
+        <p class="itens-menu"><a href="#segundo-carro">Segundo veículo</a></p>
+        <p class="itens-menu"><a href="#terceiro-carro">Terceiro veículo</a></p>
+        <p class="itens-menu"><a href="#quarto-carro">Quarto veículo</a></p>
+        <p class="itens-menu"><a href="#quinto-carro">Quinto veículo</a></p>
+        <p class="itens-menu"><a href="#carrinho">Carrinho</a></p>
+        
+    </div>
+</div>
+<body>
+    <section class="full-page" id="topo">
+        <header>
+            <div>
+                <div>
+                    WebGLoja de veículos
+                </div>
+            </div>
+        </header>
+        <main id="home-page">
+            <div>
+                <p> <span id="h1-msg">BEM VINDO</span><br><br>
+                    Essa página contém o primeiro trabalho a disciplina de Computação Gráfica do aluno 
+                    Vinícius Garcia Peruzzi, no curso de Ciência da Computação da UFPel. <br>
+                    É o meu primeiro contato com WebGL, e umas das primeiras experiências mais sérias com 
+                    o triozinho HTML, Javascript e CSS.
+                    A proposta é fazer uma página que simule uma página de venda de itens (no caso desse 
+                    trabalho carros), em que todos os itens sejam renderizados em 3D na tela usando o WebGL2. <br>
+                    Sinta-se à vontade para navegar pelas seções do site no menu lateral esquerdo.<br>
+                    No catálogo, há uma miniatura de todos os itens, em que, ao clicar em cada um, a 
+                    navegação é direcionada para a seção do produto em questão, e ele pode ser manipulado 
+                    com um outro menu lateral.
+
+                </p>
+            </div>
+        </main>
+        <footer>
+            <div>
+                <div>
+                    Trabalho do aluno Vinícius Peruzzi, matrícula 20101661.
+                </div>
+            </div>
+        </footer>
+    </section>
+    <section class="full-page" id="catalogo">
+        <header>
+            <div>
+                <div>
+                    CATÁLOGO DE VEÍCULOS
+                </div>
+            </div>
+        </header>
+        <div id="slider-conteiner">
+            <div class="slider">
+                <div class="slide-track">
+                    <a href="#primeiro-carro">
+                        <div class="slide">
+                            <div class="element" id="first">
+                             <canvas id="canvas0">
+
+                             </canvas>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#segundo-carro">
+                        <div class="slide">
+                            <div class="element" id="second">
+                                <canvas id="canvas1">
+
+                                </canvas>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#terceiro-carro">
+                        <div class="slide">
+                            <div class="element" id="third">
+                                <canvas id="canvas2">
+
+                                </canvas>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#quarto-carro">
+                        <div class="slide">
+                            <div class="element" id="fourth">
+                                <canvas id="canvas3">
+
+                                </canvas>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#quinto-carro">
+                        <div class="slide">
+                            <div class="element" id="fifth">
+                                <canvas id="canvas4">
+
+                                </canvas>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="#primeiro-carro">
+                        <div class="slide">
+                            <div class="element" id="first">
+                                <canvas id="canvas5">
+
+                                </canvas>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#segundo-carro">
+                        <div class="slide">
+                            <div class="element" id="second">
+                                <canvas id="canvas6">
+
+                                </canvas>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#terceiro-carro">
+                        <div class="slide">
+                            <div class="element" id="third">
+                                <canvas id="canvas7">
+
+                                </canvas>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#quarto-carro">
+                        <div class="slide">
+                            <div class="element" id="fourth">
+                                <canvas id="canvas8">
+
+                                </canvas>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#quinto-carro">
+                        <div class="slide">
+                            <div class="element" id="fifth">
+                                <canvas id="canvas9">
+
+                                </canvas>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="itens-page" id="primeiro-carro">
+        <div class="titulo-item">
+            <div>
+                <div>
+                    PRIMEIRO VEÍCULO
+                </div>
+            </div>
+        </div>
+        <div class="canvas-page-class">
+            <div>
+                <canvas id="item-canvas0">
+
+                </canvas>
+            </div>
+        </div>
+        <div class="ui-hud">
+            <div id="uiId" class="ui">
+                    <div id="x0"></div>
+                    <div id="y0"></div>
+                    <div id="z0"></div>
+                    <div id="angleX0"></div>
+                    <div id="angleY0"></div>
+                    <div id="angleZ0"></div>
+                    <div id="scaleX0"></div>
+                    <div id="scaleY0"></div>
+                    <div id="scaleZ0"></div>
+            </div>
+        </div>
+        <a href="#primeiro-carro" onclick="pegaContexto(0, 0)"><div class="buy" id="buy0">Adicionar ao carrinho</div></a>
+    </section>
+    <section class="itens-page" id="segundo-carro">
+        <div class="titulo-item">
+            <div>
+                <div>
+                    SEGUNDO VEÍCULO
+                </div>
+            </div>
+        </div>
+        <div class="canvas-page-class">
+            <div>
+                <canvas id="item-canvas1">
+
+                </canvas>
+            </div>
+        </div>
+        <div class="ui-hud">
+            <div id="uiId" class="ui">
+                    <div id="x1"></div>
+                    <div id="y1"></div>
+                    <div id="z1"></div>
+                    <div id="angleX1"></div>
+                    <div id="angleY1"></div>
+                    <div id="angleZ1"></div>
+                    <div id="scaleX1"></div>
+                    <div id="scaleY1"></div>
+                    <div id="scaleZ1"></div>
+            </div>
+        </div>
+        <a href="#segundo-carro" onclick="pegaContexto(1, 0)"><div class="buy" id="buy1">Adicionar ao carrinho</div></a>
+    </section>
+    <section class="itens-page" id="terceiro-carro">
+        <div class="titulo-item">
+            <div>
+                <div>
+                    TERCEIRO VEÍCULO
+                </div>
+            </div>
+        </div>
+        <div class="canvas-page-class">
+            <div>
+                <canvas id="item-canvas2">
+
+                </canvas>
+            </div>
+        </div>
+        <div class="ui-hud">
+            <div id="uiId" class="ui">
+                    <div id="x2"></div>
+                    <div id="y2"></div>
+                    <div id="z2"></div>
+                    <div id="angleX2"></div>
+                    <div id="angleY2"></div>
+                    <div id="angleZ2"></div>
+                    <div id="scaleX2"></div>
+                    <div id="scaleY2"></div>
+                    <div id="scaleZ2"></div>
+            </div>
+        </div>
+        <a href="#terceiro-carro" onclick="pegaContexto(2, 0)"><div class="buy" id="buy2">Adicionar ao carrinho</div></a>
+    </section>
+    <section class="itens-page" id="quarto-carro">
+        <div class="titulo-item">
+            <div>
+                <div>
+                    QUARTO VEÍCULO
+                </div>
+            </div>
+        </div>
+        <div class="canvas-page-class">
+            <div>
+                <canvas id="item-canvas3">
+
+                </canvas>
+            </div>
+        </div>
+        <div class="ui-hud">
+            <div id="uiId" class="ui">
+                    <div id="x3"></div>
+                    <div id="y3"></div>
+                    <div id="z3"></div>
+                    <div id="angleX3"></div>
+                    <div id="angleY3"></div>
+                    <div id="angleZ3"></div>
+                    <div id="scaleX3"></div>
+                    <div id="scaleY3"></div>
+                    <div id="scaleZ3"></div>
+            </div>
+        </div>
+        <a href="#quarto-carro" onclick="pegaContexto(3, 0)"><div class="buy" id="buy3">Adicionar ao carrinho</div></a>
+    </section>
+    <section class="itens-page" id="quinto-carro">
+        <div class="titulo-item">
+            <div>
+                <div>
+                    QUINTO VEÍCULO
+                </div>
+            </div>
+        </div>
+        <div class="canvas-page-class">
+            <div>
+                <canvas id="item-canvas4">
+
+                </canvas>
+            </div>
+        </div>
+        <div class="ui-hud">
+            <div id="uiId" class="ui">
+                    <div id="x4"></div>
+                    <div id="y4"></div>
+                    <div id="z4"></div>
+                    <div id="angleX4"></div>
+                    <div id="angleY4"></div>
+                    <div id="angleZ4"></div>
+                    <div id="scaleX4"></div>
+                    <div id="scaleY4"></div>
+                    <div id="scaleZ4"></div>
+            </div>
+        </div>
+        <a href="#quinto-carro" onclick="pegaContexto(4, 0)"><div class="buy" id="buy4">Adicionar ao carrinho</div></a>
+    </section>
+    <section id="carrinho">
+        <div class="titulo-item">
+            <div>
+                <div>
+                    CARRINHO DE COMPRAS
+                </div>
+            </div>
+        </div>
+        <div class="canvas-page-class">
+            <div>
+                <canvas id="canvas-carrinho">
+
+                </canvas>
+            </div>
+        </div>
+    </section>
+    <link rel="stylesheet" href="assets/css/ui.css">
+    <script src="assets/javascript/resources.js"></script>
+    <script src="https://webgl2fundamentals.org/webgl/resources/twgl-full.min.js"></script>
+    <!--Esse aqui é o arquivo que vem do próprio tutorial
+        <script src="https://webgl2fundamentals.org/webgl/resources/webgl-utils.js"></script>
+        ele tem as funções que fazem a criação dos shaders já na chamada da criaçao do programa,
+        mas essas eu não estou usando. Ele está qui por causa das definiçoes de dimensionamento do canvas
+        que passam de clipspace para pixel, achei muito complexa a explicação no site e preferi abstrair
+        essa parte, entendo como funciona, mas não muito porque funciona.
+        importei como arquivo para poder abrir se precisar de internet :D-->
+    <script src="assets/javascript/ui.js"></script>
+    <script src="assets/javascript/geometry.js"></script>
+    <script src="assets/javascript/color.js"></script>
+    <script src="https://webgl2fundamentals.org/webgl/resources/m4.js"></script>
+    <script src="https://webgl2fundamentals.org/webgl/resources/m3.js"></script>
+    <script src="assets/javascript/obj_teste.js"></script>
+</body>
+</html>
