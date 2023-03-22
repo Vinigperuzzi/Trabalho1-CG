@@ -367,18 +367,48 @@ function generateTangents(position, texcoord, indices) {
 
 async function main() {
   for (let i = 0; i<10; i++){
+    let objName;
+    switch (i%5) {
+      case 0: objName = 'assets/obj/koeni.obj';
+      break;
+      case 1: objName = 'assets/obj/airboat.obj';
+      break;
+      case 2: objName = 'assets/obj/bugatti.obj';
+      break;
+      case 3: objName = 'assets/obj/cessna.obj';
+      break;
+      case 4: objName = 'assets/obj/alpha_147.obj';
+      break;
+      default: objName = 'assets/obj/shuttle.obj';
+      break;
+    }
     let name = `#canvas${i}`;
-    draw(name);
+    draw(name, objName);
   }
   for (let i = 0; i<5; i++){
     let nameItem = `#item-canvas${i}`;
-    draw(nameItem);
+    let objName;
+    switch (i%5) {
+      case 0: objName = 'assets/obj/koeni.obj';
+      break;
+      case 1: objName = 'assets/obj/airboat.obj';
+      break;
+      case 2: objName = 'assets/obj/bugatti.obj';
+      break;
+      case 3: objName = 'assets/obj/cessna.obj';
+      break;
+      case 4: objName = 'assets/obj/alpha_147.obj';
+      break;
+      default: objName = 'assets/obj/shuttle.obj';
+      break;
+    }
+    draw(nameItem, objName);
   }
 }
 
 
 
-async function draw(name) {
+async function draw(name, objName) {
   // Get A WebGL context
   /** @type {HTMLCanvasElement} */
   const canvas = document.querySelector(name);
@@ -391,7 +421,7 @@ async function draw(name) {
   // compiles and links the shaders, looks up attribute and uniform locations
   const meshProgramInfo = twgl.createProgramInfo(gl, [vs, fs]);
 
-  const objHref = 'assets/obj/koeni.obj';  
+  const objHref = objName;  
   const response = await fetch(objHref);
   const text = await response.text();
   const obj = parseOBJ(text);
