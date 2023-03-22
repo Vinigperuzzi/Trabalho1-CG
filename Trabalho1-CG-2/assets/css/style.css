@@ -249,6 +249,34 @@ a {
     color: white;
 }
 
+.titulo-item{
+    display: flex;
+    position: absolute;
+    width: 100vw;
+    height: 8vh;
+    background: var(--primary-color);
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo-item div {
+    display: flex;
+    height: 90%;
+    width: 99.5%;
+    background: var(--primary-color-inv);
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.titulo-item div div{
+    font-size: 4em;
+    color: white;
+    text-decoration: solid;
+    font-style: oblique;
+    
+}
+
 .canvas-page-class {
     width: 65vw;
     height: 65vh;
@@ -290,6 +318,16 @@ Lógica do UI
 /*====================================================================
 Fim da lógica do UI
 =======================================================================*/
+
+.buy:hover {
+    background: var(--light-color)
+}
+
+.buy:active {
+    background: var(--primary-color-inv);
+    margin-top: 0.3vh;
+
+}
 
 #carrinho {
     height: 100vh;

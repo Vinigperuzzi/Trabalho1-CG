@@ -73,6 +73,32 @@ function createProgram(gl, vertexShader, fragmentShader){
   gl.deleteProgram(program);
 }
 
+function criaItem(index, color){
+  return {
+    index,
+    color
+  };
+}
+let carrinhoQTD = 0;
+
+let itensCarrinho = [];
+
+function pegaContexto(index, color) {
+  carrinhoQTD++;
+  itensCarrinho.push(criaItem(index, color));
+  console.log(itensCarrinho);
+  console.log(carrinhoQTD);
+  carrinho();
+}
+
+function carrinho (){
+  let tx = 110; let ty = 60; let tz = 0;
+  let rx = 1; let ry = 0; let rz = 0;
+  let sx = 1; let sy = 1; let sz = 1;
+  let index = 0;
+  draw(tx, ty, tz, rx, ry, rz, sx, sy, sz, index);
+}
+
 function main() {
 
   for (let i = 0; i<10; i++){
@@ -93,11 +119,7 @@ function main() {
     let animation = false;
     draw1(i, nameItem, tx, ty, tz, rx, ry, rz, sx, sy, sz, index, animation);
   }
-  let tx = 110; let ty = 60; let tz = 0;
-  let rx = 1; let ry = 0; let rz = 0;
-  let sx = 1; let sy = 1; let sz = 1;
-  let index = 0;
-  draw(tx, ty, tz, rx, ry, rz, sx, sy, sz, index);
+  carrinho();
 
 }
 
@@ -194,6 +216,8 @@ function draw1(i, canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz, index, animati
       drawScene();
     };
   }
+  
+  var then = 0;
 
   function drawScene() {
     webglUtils.resizeCanvasToDisplaySize(gl.canvas);
@@ -291,45 +315,60 @@ function draw(tx, ty, tz, rx, ry, rz, sx, sy, sz, index){
   let rotation = [degToRad(rx), degToRad(ry), degToRad(rz)];
   let scale = [sx, sy, sz];
 
-  drawScene();
-
-  function drawScene() {
-    webglUtils.resizeCanvasToDisplaySize(gl.canvas);
   
-    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+  webglUtils.resizeCanvasToDisplaySize(gl.canvas);
+  gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
   
-    gl.clearColor(1, 1, 1, 1);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  gl.clearColor(1, 1, 1, 1);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  gl.enable(gl.DEPTH_TEST);
   
-    gl.enable(gl.DEPTH_TEST);
+  gl.enable(gl.CULL_FACE);
   
-    gl.enable(gl.CULL_FACE);
-  
-    gl.useProgram(program);
-  
-    gl.bindVertexArray(vao);
-  
-    var matrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
-    matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
-    matrix = m4.xRotate(matrix, rotation[0]);
-    matrix = m4.yRotate(matrix, rotation[1]);
-    matrix = m4.zRotate(matrix, rotation[2]);
-    matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
-  
-    gl.uniformMatrix4fv(matrixLocation, false, matrix);
-  
-    var primitiveType = gl.TRIANGLES;
-    var offset = 0;
-    gl.drawArrays(primitiveType, offset, count);
-
-    count = setGeometry(gl, 4);
+  for (let i = 0; i < carrinhoQTD; i++){
+    count = setGeometry(gl, itensCarrinho[i].index); 
     var size = 3;          
     var type = gl.FLOAT;   
     var normalize = false; 
     var stride = 0;        
     var offset = 0;        
     gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
+    
+    let colorBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+    setColors(gl);
+  
+    gl.enableVertexAttribArray(colorAttributeLocation);
+  
+    var size = 3;          
+    var type = gl.UNSIGNED_BYTE;   
+    var normalize = true;  
+    var stride = 0;        
+    var offset = 0;        
+    gl.vertexAttribPointer(
+        colorAttributeLocation, size, type, normalize, stride, offset);
 
+    drawScene();
+    if (i%2 == 0){
+      scale[0] = -1;
+      translation[0] += 650;
+    } else {
+      scale[0] = 1;
+      translation[0] -= 650;
+      translation[1] += 160;
+    }
+  }   
+
+
+  function drawScene() {
+  
+  
+  
+    gl.useProgram(program);
+  
+    gl.bindVertexArray(vao);
+  
+    var matrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
     matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
     matrix = m4.xRotate(matrix, rotation[0]);
     matrix = m4.yRotate(matrix, rotation[1]);
