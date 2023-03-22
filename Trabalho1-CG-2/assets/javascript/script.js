@@ -1,8 +1,7 @@
 "use strict";
 
 
-// let nomeBemVido = window.prompt("Informe o seu nome para uma experiência mais personalizada!!");
-let nomeBemVido;
+let nomeBemVido = window.prompt("Informe o seu nome para uma experiência mais personalizada!!");
 const nomeP = document.querySelector("#h1-msg");
 if (nomeBemVido == null || nomeBemVido == ""){
     nomeBemVido = 'Visitante';
