@@ -2,11 +2,30 @@
 conforme for chamado na main pode-se diferenciar as funções aqui. Tipo setF, setT, setO, set!.
 Todas são iguais, com apenas as diferenças de mudar o nome e as coordenadas das cores*/
 
-function setColors(gl) {
+
+function setColors(gl, index, color) {
+  switch (index) {
+    case 0: setFC(gl);
+    break;
+    case 1: setCubeC(gl);
+    break;
+    case 2: setPiramidC(gl);
+    break;
+    case 3: setRectanguleC(gl);
+    break;
+    case 4: setHexagonC(gl);
+    break;
+    default: setFC(gl);
+    break;
+  }
+    return count;
+  }
+
+  function setFC (gl) {
     gl.bufferData(
-        gl.ARRAY_BUFFER,
-        new Uint8Array([
-            // left column front
+      gl.ARRAY_BUFFER,
+      new Uint8Array([
+          // left column front
           200,  70, 120,
           200,  70, 120,
           200,  70, 120,
@@ -133,6 +152,219 @@ function setColors(gl) {
           160, 160, 220,
           160, 160, 220,
           160, 160, 220,
-        ]),
-        gl.STATIC_DRAW);
+      ]),
+      gl.STATIC_DRAW);
+  }
+  
+  function setCubeC (gl) {
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Uint8Array([
+          // front face
+          200,  70, 120,
+          200,  70, 120,
+          200,  70, 120,
+          200,  70, 120,
+          200,  70, 120,
+          200,  70, 120,
+  
+          // back face
+          160, 160, 220,
+          160, 160, 220,
+          160, 160, 220,
+          160, 160, 220,
+          160, 160, 220,
+          160, 160, 220,
+  
+          //side face
+          90, 130, 110,
+          90, 130, 110,
+          90, 130, 110,
+          90, 130, 110,
+          90, 130, 110,
+          90, 130, 110,
+  
+          //side rigth face
+          140, 210, 80,
+          140, 210, 80,
+          140, 210, 80,
+          140, 210, 80,
+          140, 210, 80,
+          140, 210, 80,
+  
+          //bottom face
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+  
+          //top face
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+  
+      ]),
+      gl.STATIC_DRAW);
+  }
+  
+  function setPiramidC (gl) {
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Uint8Array([
+          // front face
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+  
+          // rigth face
+          160, 160, 220,
+          160, 160, 220,
+          160, 160, 220,
+  
+          // back face
+          140, 210, 80,
+          140, 210, 80,
+          140, 210, 80,
+  
+          // left face
+          200,  70, 120,
+          200,  70, 120,
+          200,  70, 120,
+  
+  
+          // base face
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+  
+      ]),
+      gl.STATIC_DRAW);
+  }
+  
+  function setRectanguleC (gl) {
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Uint8Array([
+          // front face
+          200,  70, 120,
+          200,  70, 120,
+          200,  70, 120,
+          200,  70, 120,
+          200,  70, 120,
+          200,  70, 120,
+  
+          // back face
+          160, 160, 220,
+          160, 160, 220,
+          160, 160, 220,
+          160, 160, 220,
+          160, 160, 220,
+          160, 160, 220,
+  
+          //side face
+          90, 130, 110,
+          90, 130, 110,
+          90, 130, 110,
+          90, 130, 110,
+          90, 130, 110,
+          90, 130, 110,
+  
+          //side rigth face
+          140, 210, 80,
+          140, 210, 80,
+          140, 210, 80,
+          140, 210, 80,
+          140, 210, 80,
+          140, 210, 80,
+  
+          //bottom face
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+  
+          //top face
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+  
+      ]),
+      gl.STATIC_DRAW);
+  }
+  
+  function setHexagonC (gl) {
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Uint8Array([
+          // front face
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+  
+          // front face down
+          140, 210, 80,
+          140, 210, 80,
+          140, 210, 80,
+  
+          // rigth face
+          160, 160, 220,
+          160, 160, 220,
+          160, 160, 220,
+  
+          // rigth down face
+          140, 210, 80,
+          140, 210, 80,
+          140, 210, 80,
+  
+          // back face
+          200,  70, 120,
+          200,  70, 120,
+          200,  70, 120,
+  
+          // back down face
+          160, 160, 220,
+          160, 160, 220,
+          160, 160, 220,
+  
+          // left face
+          90, 130, 110,
+          90, 130, 110,
+          90, 130, 110,
+  
+          // left down face
+          140, 210, 80,
+          140, 210, 80,
+          140, 210, 80,
+  
+          // base face
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+          76, 210, 100,
+  
+          // base down face
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+          100, 70, 210,
+  
+      ]),
+      gl.STATIC_DRAW);
   }

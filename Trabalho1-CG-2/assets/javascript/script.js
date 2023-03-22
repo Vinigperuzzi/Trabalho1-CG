@@ -158,7 +158,7 @@ function draw1(i, canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz, index, animati
   
   let colorBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-  setColors(gl);
+  setColors(gl, index, 0);
 
   gl.enableVertexAttribArray(colorAttributeLocation);
 
@@ -291,7 +291,7 @@ function draw(tx, ty, tz, rx, ry, rz, sx, sy, sz, index){
   
   let colorBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-  setColors(gl);
+  setColors(gl, index, 0);
 
   gl.enableVertexAttribArray(colorAttributeLocation);
 
@@ -336,7 +336,7 @@ function draw(tx, ty, tz, rx, ry, rz, sx, sy, sz, index){
     
     let colorBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-    setColors(gl);
+    setColors(gl, index, 0);
   
     gl.enableVertexAttribArray(colorAttributeLocation);
   
