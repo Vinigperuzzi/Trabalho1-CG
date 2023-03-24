@@ -512,26 +512,10 @@ function drawBack(){
       translation[1] -= speed;
     }
   
-    angleInDegrees -= speed;
-    rotationInRadians = angleInDegrees * Math.PI / 180;
-    if (angleInDegrees >= 360){
-      angleInDegrees = 0;
-    }
+    rotation[1] += 0.01;
+    rotation[0] += 0.005;
+    rotation[2] += 0.3;
   
-    if (scale[0] <= -1){
-     turn = true;
-    }
-    if (scale[0] >= 1){
-      turn = false;
-    }
-  
-    if (turn){
-      scale[0] += 0.05;
-      //scale[1] += 0.02;
-    } else {
-      scale[0] -= 0.05;
-      //scale[1] -= 0.02;
-    }
   
     requestAnimationFrame(drawScene);
 
@@ -540,7 +524,5 @@ function drawBack(){
 
 let move = 0;
 let speed = 5;
-let angleInDegrees = 0.2;
-let rotationInRadians = 0.2;
-let turn = false;
+let turn = true;
 main();

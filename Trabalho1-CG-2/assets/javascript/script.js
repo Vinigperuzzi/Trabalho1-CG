@@ -146,6 +146,9 @@ function draw1(i, canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz, index, animati
   gl.bindVertexArray(vao);
   gl.enableVertexAttribArray(positionAttributeLocation);
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+
+  /*Talvez o bagulho seja a aprtir daqui*/
+
   let count = setGeometry(gl, index);      //ARRUMAR UM JEITO DE PASSAR ISSO POR PARÂMETRO, OU SELECIONAR POR PARÂMETRO
 
   var size = 3;          
@@ -168,6 +171,8 @@ function draw1(i, canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz, index, animati
   var offset = 0;        
   gl.vertexAttribPointer(
       colorAttributeLocation, size, type, normalize, stride, offset);
+
+  /*Se pá até aqui*/
 
   function radToDeg(r) {
     return r * 180 / Math.PI;
