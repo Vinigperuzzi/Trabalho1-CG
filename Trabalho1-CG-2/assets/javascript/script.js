@@ -255,7 +255,7 @@ function draw1(i, canvasName, tx, ty, tz, rx, ry, rz, sx, sy, sz, index, animati
     
     if (animation){ // && mutex (setando ao final da execução e sendo desativado no boilerplate)
       rotation[1] += degToRad(1);
-      matrix = m4.yRotate(matrix, rotation[1])
+      matrix = m4.yRotate(matrix, rotation[1]);
       requestAnimationFrame(drawScene);
     }
 
