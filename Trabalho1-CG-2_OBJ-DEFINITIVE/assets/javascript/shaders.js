@@ -20,7 +20,7 @@ void main() {
 `;
 
 const fs = `#version 300 es
-precision highp float;
+precision lowp float;
 
 in vec3 v_normal;
 in vec2 v_texcoord;

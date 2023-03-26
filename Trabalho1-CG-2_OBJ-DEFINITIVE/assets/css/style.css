@@ -315,6 +315,48 @@ Lógica do UI
     opacity: 0.6;
 }
 
+.cores{
+    display: flex;
+    margin-top: 50vh;
+}
+
+.cor {
+    width: 4vw;
+    height: 2vh;
+    background: var(--dark-color);
+    opacity: 0.8;
+    margin: 0 0.5vw;
+    border-radius: 40px;
+}
+.cor:hover{
+    cursor: pointer;
+}
+.selecione{
+    margin-left: 5%;
+    width: 90%;
+    margin-top: 1vh;
+    background: var(--dark-color);
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+}
+
+#colorA{
+    background: red;
+}
+#colorB{
+    background: yellow;
+}
+#colorC{
+    background: blue;
+}
+#colorD{
+    background: pink;
+}
+#colorE{
+    background: green;
+}
+
 /*====================================================================
 Fim da lógica do UI
 =======================================================================*/

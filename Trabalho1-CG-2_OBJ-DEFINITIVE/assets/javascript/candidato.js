@@ -9,8 +9,36 @@ if (nomeBemVido == null || nomeBemVido == ""){
 nomeP.innerHTML += `, ${nomeBemVido}!`;
 
 
+function criaItem(obj, texture){
+  return {
+    obj,
+    texture
+  };
+}
+let carrinhoQTD = 0;
+let itensCarrinho = [];
+
+function pegaContexto(obj, index) {
+  carrinhoQTD++;
+  itensCarrinho.push(criaItem(obj, texturaGlobal[index]));
+  console.log(itensCarrinho);
+  console.log(carrinhoQTD);
+}
+
+let texturaGlobal = ["assets/obj/airplane1/ap.png",
+                  "assets/obj/airplane2/jp.png",
+                  "assets/obj/costerGuard/hcC.png",
+                  "assets/obj/fighter/fgt.png",
+                  "assets/obj/Heli3/Mi28NA.png"];
+
+
+function atualizaTextura(canvas, obj, textura, index, rot, esc){
+  texturaGlobal[index] = textura;
+  draw(canvas, obj, texturaGlobal[index], rot, esc, index, false);
+}
+
 function main(){
-  for (let i = 0; i<10; i++){
+  for (let i = 0; i<0; i++){
     let name = `#canvas${i}`;
     let objPath;
     let pngPath;
@@ -19,32 +47,32 @@ function main(){
     let animate = true;
     switch (i%5){
       case 0: objPath = "assets/obj/airplane1/ap.obj";
-              pngPath = "assets/obj/airplane1/ap.png";
+              pngPath = "assets/obj/airplane1/apA.png";
               orientation = 270;
               initialScale = [1, 1, 1];
       break;
       case 1: objPath = "assets/obj/airplane2/jp.obj";
-              pngPath = "assets/obj/airplane2/jp.png";
+              pngPath = "assets/obj/airplane2/jpA.png";
               orientation = 270;
               initialScale = [1, 1, 1];
       break;
       case 2: objPath = "assets/obj/costerGuard/hc.obj";
-              pngPath = "assets/obj/costerGuard/hcC.png";
+              pngPath = "assets/obj/costerGuard/hcA.png";
               orientation = 270;
               initialScale = [1, 1, 1];
       break;
       case 3: objPath = "assets/obj/fighter/fgt.obj";
-              pngPath = "assets/obj/fighter/fgt.png";
+              pngPath = "assets/obj/fighter/fgtA.png";
               orientation = 270;
               initialScale = [1, 1, 1];
       break;
       case 4: objPath = "assets/obj/Heli3/Mi28.obj";
-              pngPath = "assets/obj/Heli3/Mi28.png";
+              pngPath = "assets/obj/Heli3/Mi28A.png";
               orientation = 0;
               initialScale = [1, 1, 1];
       break;
       default:  objPath = "assets/obj/Heli3/Mi28.obj";
-                pngPath = "assets/obj/Heli3/Mi28.png";
+                pngPath = "assets/obj/Heli3/Mi28A.png";
                 orientation = 0;
                 initialScale = [1, 1, 1];
       break;
@@ -60,32 +88,32 @@ function main(){
     let animate = false;
     switch (i%5){
       case 0: objPath = "assets/obj/airplane1/ap.obj";
-              pngPath = "assets/obj/airplane1/ap.png";
+              pngPath = "assets/obj/airplane1/apA.png";
               orientation = 270;
               initialScale = [1, 1, 1];
       break;
       case 1: objPath = "assets/obj/airplane2/jp.obj";
-              pngPath = "assets/obj/airplane2/jp.png";
+              pngPath = "assets/obj/airplane2/jpA.png";
               orientation = 270;
               initialScale = [1, 1, 1];
       break;
       case 2: objPath = "assets/obj/costerGuard/hc.obj";
-              pngPath = "assets/obj/costerGuard/hcC.png";
+              pngPath = "assets/obj/costerGuard/hcA.png";
               orientation = 270;
               initialScale = [1, 1, 1];
       break;
       case 3: objPath = "assets/obj/fighter/fgt.obj";
-              pngPath = "assets/obj/fighter/fgt.png";
+              pngPath = "assets/obj/fighter/fgtA.png";
               orientation = 270;
               initialScale = [1, 1, 1];
       break;
       case 4: objPath = "assets/obj/Heli3/Mi28.obj";
-              pngPath = "assets/obj/Heli3/Mi28N.png";
+              pngPath = "assets/obj/Heli3/Mi28A.png";
               orientation = 0;
               initialScale = [1, 1, 1];
       break;
       default:  objPath = "assets/obj/Heli3/Mi28.obj";
-                pngPath = "assets/obj/Heli3/Mi28.png";
+                pngPath = "assets/obj/Heli3/Mi28A.png";
                 orientation = 0;
                 initialScale = [1, 1, 1];
       break;
@@ -301,7 +329,6 @@ async function draw(name, objPath, pngPath, orientation, initialScale, i, animat
     m4.xRotate(u_world, rotation[0], u_world);
     m4.yRotate(u_world, rotation[1], u_world);
     m4.zRotate(u_world, rotation[2], u_world);
-
 
     for (const {bufferInfo, vao, material} of parts) {
       // set the attributes for this part.
