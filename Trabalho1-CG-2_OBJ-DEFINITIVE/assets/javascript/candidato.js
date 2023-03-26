@@ -25,11 +25,11 @@ function pegaContexto(obj, index) {
   console.log(carrinhoQTD);
 }
 
-let texturaGlobal = ["assets/obj/airplane1/ap.png",
-                  "assets/obj/airplane2/jp.png",
-                  "assets/obj/costerGuard/hcC.png",
-                  "assets/obj/fighter/fgt.png",
-                  "assets/obj/Heli3/Mi28NA.png"];
+let texturaGlobal = ["assets/obj/airplane1/apA.png",
+                  "assets/obj/airplane2/jpA.png",
+                  "assets/obj/costerGuard/hcA.png",
+                  "assets/obj/fighter/fgtA.png",
+                  "assets/obj/Heli3/Mi28A.png"];
 
 
 function atualizaTextura(canvas, obj, textura, index, rot, esc){
