@@ -1,6 +1,7 @@
 "use strict";
 
-let nomeBemVido = window.prompt("Informe o seu nome para uma experiência mais personalizada!!");
+//let nomeBemVido = window.prompt("Informe o seu nome para uma experiência mais personalizada!!");
+let nomeBemVido;
 const nomeP = document.querySelector("#h1-msg");
 if (nomeBemVido == null || nomeBemVido == ""){
     nomeBemVido = 'Visitante';
@@ -156,7 +157,9 @@ function parseOBJ(text) {
   };
 }
 
-
+let translateFlag;
+let rotateFlag;
+let scleFlag;
 function main(){
   for (let i = 0; i<10; i++){
     let name = `#canvas${i}`;
@@ -342,9 +345,9 @@ async function draw(name, objPath, i, animate) {
   let rotation = [degToRad(0), degToRad(0), degToRad(0)];
   let scale = [1, 1, 1];
 
-  webglLessonsUI.setupSlider(`#x${i}`,      {value: translation[0], slide: updatePosition(0), max: gl.canvas.width });
-  webglLessonsUI.setupSlider(`#y${i}`,      {value: translation[1], slide: updatePosition(1), max: gl.canvas.height});
-  webglLessonsUI.setupSlider(`#z${i}`,      {value: translation[2], slide: updatePosition(2), max: gl.canvas.height});
+  webglLessonsUI.setupSlider(`#x${i}`,      {value: translation[0], slide: updatePosition(0), min: -(gl.canvas.width*3.5), max: gl.canvas.width*3.5});
+  webglLessonsUI.setupSlider(`#y${i}`,      {value: translation[1], slide: updatePosition(1), min: -(gl.canvas.height*3.5), max: gl.canvas.height*3.5});
+  webglLessonsUI.setupSlider(`#z${i}`,      {value: translation[2], slide: updatePosition(2), min: -(gl.canvas.height*3.5), max: gl.canvas.height*3.5});
   webglLessonsUI.setupSlider(`#angleX${i}`, {value: radToDeg(rotation[0]), slide: updateRotation(0), max: 360});
   webglLessonsUI.setupSlider(`#angleY${i}`, {value: radToDeg(rotation[1]), slide: updateRotation(1), max: 360});
   webglLessonsUI.setupSlider(`#angleZ${i}`, {value: radToDeg(rotation[2]), slide: updateRotation(2), max: 360});
@@ -355,6 +358,7 @@ async function draw(name, objPath, i, animate) {
   function updatePosition(index) {
     return function(event, ui) {
       translation[index] = ui.value;
+      translateFlag = 1;
       render();
     };
   }
@@ -364,6 +368,7 @@ async function draw(name, objPath, i, animate) {
       var angleInDegrees = ui.value;
       var angleInRadians = degToRad(angleInDegrees);
       rotation[index] = angleInRadians;
+      rotateFlag = index;
       render();
     };
   }
@@ -371,6 +376,7 @@ async function draw(name, objPath, i, animate) {
   function updateScale(index) {
     return function(event, ui) {
       scale[index] = ui.value;
+      scleFlag = 1;
       render();
     };
   }
@@ -408,8 +414,24 @@ async function draw(name, objPath, i, animate) {
 
     // compute the world matrix once since all parts
     // are at the same space.
-    let u_world = m4.yRotation(time);
+    let u_world;
+    u_world = m4.yRotation(time);
     u_world = m4.translate(u_world, ...objOffset);
+    if (!animate){
+      if (translateFlag == 1){
+        u_world = m4.translation(translation[0], translation[1], translation[2]);
+        translateFlag = 0;
+      } else if(rotateFlag == 0){
+          u_world = m4.xRotation(rotation[0]);
+          rotateFlag = 3;
+      } else if (rotateFlag == 1){
+          u_world = m4.yRotation(rotation[1]);
+          rotateFlag = 3;
+      } else if (rotateFlag == 2){
+          u_world = m4.zRotation(rotation[2]);
+          rotateFlag = 3;
+      }
+    }
 
     
 
