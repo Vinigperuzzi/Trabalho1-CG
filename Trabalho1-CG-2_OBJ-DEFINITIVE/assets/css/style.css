@@ -308,6 +308,7 @@ Lógica do UI
     height: 65vh;
     margin-top: 20vh;
     margin-left: 0.5vw;
+    margin-right: calc(-15vw);
     border-radius: 20px;
     box-shadow: 20px 20px 20px black;
     justify-self: end;
@@ -361,16 +362,6 @@ Lógica do UI
 Fim da lógica do UI
 =======================================================================*/
 
-.buy:hover {
-    background: var(--light-color)
-}
-
-.buy:active {
-    background: var(--primary-color-inv);
-    margin-top: 0.3vh;
-
-}
-
 #carrinho {
     height: 100vh;
     width: 100vw;
@@ -399,6 +390,15 @@ Fim da lógica do UI
     #h1-msg {
         font-size: 1.6em;
     }
+    .ui-hud{  /*== #uiContainer*/
+        padding-right: 8vw;
+    }
+    .cor {
+        padding-left: 4vw;
+    }
+    .selecione{
+        margin-left: 5vw;
+    }
 }
 
 @media (max-height: 480px){
@@ -407,5 +407,14 @@ Fim da lógica do UI
     }
     header div {
         width: 99.7%;
+    }
+    .ui-hud{  /*== #uiContainer*/
+        padding-right: 8vw;
+    }
+    .cor {
+        padding-left: 4vw;
+    }
+    .selecione{
+        margin-left: 5vw;
     }
 }

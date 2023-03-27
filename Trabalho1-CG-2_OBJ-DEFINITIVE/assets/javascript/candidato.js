@@ -37,6 +37,8 @@ function atualizaTextura(canvas, obj, textura, index, rot, esc){
   draw(canvas, obj, texturaGlobal[index], rot, esc, index, false);
 }
 
+let mutex = false;
+
 function main(){
   for (let i = 0; i<0; i++){
     let name = `#canvas${i}`;
@@ -48,12 +50,12 @@ function main(){
     switch (i%5){
       case 0: objPath = "assets/obj/airplane1/ap.obj";
               pngPath = "assets/obj/airplane1/apA.png";
-              orientation = 270;
+              orientation = 0;
               initialScale = [1, 1, 1];
       break;
       case 1: objPath = "assets/obj/airplane2/jp.obj";
               pngPath = "assets/obj/airplane2/jpA.png";
-              orientation = 270;
+              orientation = 0;
               initialScale = [1, 1, 1];
       break;
       case 2: objPath = "assets/obj/costerGuard/hc.obj";
@@ -89,12 +91,12 @@ function main(){
     switch (i%5){
       case 0: objPath = "assets/obj/airplane1/ap.obj";
               pngPath = "assets/obj/airplane1/apA.png";
-              orientation = 270;
+              orientation = 0;
               initialScale = [1, 1, 1];
       break;
       case 1: objPath = "assets/obj/airplane2/jp.obj";
               pngPath = "assets/obj/airplane2/jpA.png";
-              orientation = 270;
+              orientation = 0;
               initialScale = [1, 1, 1];
       break;
       case 2: objPath = "assets/obj/costerGuard/hc.obj";
@@ -212,6 +214,16 @@ async function draw(name, objPath, pngPath, orientation, initialScale, i, animat
   //Fim do set da camera//
 
   var texcoordAttributeLocation = gl.getAttribLocation(meshProgramInfo.program, "a_texcoord");
+  gl.enableVertexAttribArray(texcoordAttributeLocation);
+
+  // Tell the attribute how to get data out of texcoordBuffer (ARRAY_BUFFER)
+  var size = 2;          // 2 components per iteration
+  var type = gl.FLOAT;   // the data is 32bit floating point values
+  var normalize = true;  // convert from 0-255 to 0.0-1.0
+  var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next color
+  var offset = 0;        // start at the beginning of the buffer
+  gl.vertexAttribPointer(
+      texcoordAttributeLocation, size, type, normalize, stride, offset);
 
   // Create a texture.
   var texture = gl.createTexture();
@@ -244,9 +256,9 @@ async function draw(name, objPath, pngPath, orientation, initialScale, i, animat
     return deg * Math.PI / 180;
   }
 
-  let translation = [0, 0, 0];
-  let rotation = [degToRad(0), degToRad(0), degToRad(0)];
-  let scale = [1, 1, 1];
+  var translation = [0, 0, 0];
+  var rotation = [degToRad(0), degToRad(0), degToRad(0)];
+  var scale = [1, 1, 1];
 
   webglLessonsUI.setupSlider(`#x${i}`,      {value: translation[0], slide: updatePosition(0), min: -(gl.canvas.width), max: gl.canvas.width});
   webglLessonsUI.setupSlider(`#y${i}`,      {value: translation[1], slide: updatePosition(1), min: -(gl.canvas.height), max: gl.canvas.height});
@@ -261,7 +273,8 @@ async function draw(name, objPath, pngPath, orientation, initialScale, i, animat
   function updatePosition(index) {
     return function(event, ui) {
       translation[index] = ui.value;
-      render();
+      mutex = true;
+      requestAnimationFrame(render);
     };
   }
 
@@ -270,14 +283,16 @@ async function draw(name, objPath, pngPath, orientation, initialScale, i, animat
       var angleInDegrees = ui.value;
       var angleInRadians = degToRad(angleInDegrees);
       rotation[index] = angleInRadians;
-      render();
+      requestAnimationFrame(render);
+      mutex = true;
     };
   }
 
   function updateScale(index) {
     return function(event, ui) {
       scale[index] = ui.value;
-      render();
+      mutex = true;
+      requestAnimationFrame(render);
     };
   }
 
@@ -342,7 +357,10 @@ async function draw(name, objPath, pngPath, orientation, initialScale, i, animat
       twgl.drawBufferInfo(gl, bufferInfo);
     }
     
-    requestAnimationFrame(render);
+    if (!mutex) {
+      requestAnimationFrame(render);
+    }
+    mutex = false;
   }
   requestAnimationFrame(render);
 }

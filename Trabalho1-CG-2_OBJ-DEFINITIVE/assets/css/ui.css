@@ -111,8 +111,18 @@ body.iframe {
   color: black;
   text-align: center;
   top: 90vh;
-  right: 50vw;
+  right: 42vw;
   padding-top: 1vh;
+}
+
+.buy:hover {
+  background: var(--light-color)
+}
+
+.buy:active {
+  background: var(--primary-color-inv);
+  margin-top: 0.3vh;
+
 }
 
 @media (max-width: 390px) {
