@@ -1,6 +1,6 @@
 "use strict";
 
-//let nomeBemVido = window.prompt("Informe o seu nome para uma experiência mais personalizada!!");
+// let nomeBemVido = window.prompt("Informe o seu nome para uma experiência mais personalizada!!");
 let nomeBemVido;
 const nomeP = document.querySelector("#h1-msg");
 if (nomeBemVido == null || nomeBemVido == ""){
@@ -45,7 +45,7 @@ function atualizaTextura(canvas, obj, textura, index, rot, esc){
 let mutex = false;
 
 function main(){
-  for (let i = 0; i<10; i++){
+  for (let i = 0; i<0; i++){
     let name = `#canvas${i}`;
     let objPath;
     let pngPath;
@@ -86,7 +86,7 @@ function main(){
     }
     draw(name, objPath, pngPath, orientation, initialScale, i, animate);
   }
-  for (let i = 0; i<5; i++){
+  for (let i = 4; i<5; i++){
     let nameItem = `#item-canvas${i}`;
     let objPath;
     let pngPath;
@@ -541,21 +541,25 @@ async function drawCar() {
     const projection = m4.perspective(fieldOfViewRadians, aspect, zNear, zFar);
 
 
+    let des = 1;
+    camY = 5;
     let camAnimate = true;
     if (camAnimate){
-      if(camX > 25){
+      if(camX > 40){
         volta = true;
       }
-      if (camX < -25){
+      if (camX < -40){
         volta = false;
       }
       if (volta){
+        des = 1;
         camX--;
       } else {
+        des = -1;
         camX++;
       }
-    } 
-    cameraPosition = m4.addVectors(cameraTarget, [camX, camY, radius,]);
+    }
+    cameraPosition = m4.addVectors(cameraTarget, [camX, camY, ((radius*des)-6),]);
 
     const up = [0, 1, 0];
     // Compute the camera's matrix using look at.
@@ -598,7 +602,7 @@ async function drawCar() {
         // calls gl.drawArrays or gl.drawElements
         twgl.drawBufferInfo(gl, bufferInfo);
       }
-      m4.translate(u_world, 1, 0, 0, u_world);
+      m4.translate(u_world, 5, 0, 0, u_world);
     }
 
 
