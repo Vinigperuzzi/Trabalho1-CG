@@ -45,7 +45,7 @@ function atualizaTextura(canvas, obj, textura, index, rot, esc){
 let mutex = false;
 
 function main(){
-  for (let i = 0; i<0; i++){
+  for (let i = 0; i<10; i++){
     let name = `#canvas${i}`;
     let objPath;
     let pngPath;
@@ -86,7 +86,7 @@ function main(){
     }
     draw(name, objPath, pngPath, orientation, initialScale, i, animate);
   }
-  for (let i = 4; i<5; i++){
+  for (let i = 0; i<5; i++){
     let nameItem = `#item-canvas${i}`;
     let objPath;
     let pngPath;
