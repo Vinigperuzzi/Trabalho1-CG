@@ -45,7 +45,7 @@ function atualizaTextura(canvas, obj, textura, index, rot, esc){
 let mutex = false;
 
 function main(){
-  for (let i = 0; i<0; i++){
+  for (let i = 0; i<10; i++){
     let name = `#canvas${i}`;
     let objPath;
     let pngPath;
@@ -265,7 +265,7 @@ async function draw(name, objPath, pngPath, orientation, initialScale, i, animat
   var rotation = [degToRad(0), degToRad(0), degToRad(0)];
   var scale = [1, 1, 1];
 
-  webglLessonsUI.setupSlider(`#x${i}`,      {value: translation[0], slide: updatePosition(0), min: -(gl.canvas.width), max: gl.canvas.width});
+  webglLessonsUI.setupSlider(`#x${i}`,      {value: translation[0], slide: updatePosition(0), min: (-(gl.canvas.width)*0.025), max: (gl.canvas.width*0.025)});
   webglLessonsUI.setupSlider(`#y${i}`,      {value: translation[1], slide: updatePosition(1), min: -(gl.canvas.height), max: gl.canvas.height});
   webglLessonsUI.setupSlider(`#z${i}`,      {value: translation[2], slide: updatePosition(2), min: -(gl.canvas.height), max: gl.canvas.height});
   webglLessonsUI.setupSlider(`#angleX${i}`, {value: radToDeg(rotation[0]), slide: updateRotation(0), max: 360});
@@ -496,11 +496,13 @@ async function drawCar() {
   }
 
   //Set da camera//
+  let camX = 0, camY = 0, camZ = 0;
+  let volta = false;
   const cameraTarget = [0, 0, 0];
   // figure out how far away to move the camera so we can likely
   // see the object.
   const radius = m4.length(globalRange) * 1.2;
-  const cameraPosition = m4.addVectors(cameraTarget, [
+  let cameraPosition = m4.addVectors(cameraTarget, [
     0,
     0,
     radius,
@@ -519,7 +521,7 @@ async function drawCar() {
   requestAnimationFrame(render);
 
   function render(time) {
-    let animate = true;
+    let animate = false;
     let speed;
     if (animate){
       speed = 0.001;
@@ -537,6 +539,23 @@ async function drawCar() {
     const fieldOfViewRadians = degToRad(60);
     const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
     const projection = m4.perspective(fieldOfViewRadians, aspect, zNear, zFar);
+
+
+    let camAnimate = true;
+    if (camAnimate){
+      if(camX > 25){
+        volta = true;
+      }
+      if (camX < -25){
+        volta = false;
+      }
+      if (volta){
+        camX--;
+      } else {
+        camX++;
+      }
+    } 
+    cameraPosition = m4.addVectors(cameraTarget, [camX, camY, radius,]);
 
     const up = [0, 1, 0];
     // Compute the camera's matrix using look at.
@@ -581,6 +600,8 @@ async function drawCar() {
       }
       m4.translate(u_world, 1, 0, 0, u_world);
     }
+
+
     requestAnimationFrame(render);
   }
 }
