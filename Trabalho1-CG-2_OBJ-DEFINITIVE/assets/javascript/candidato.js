@@ -1,12 +1,29 @@
 "use strict";
 
-// let nomeBemVido = window.prompt("Informe o seu nome para uma experiência mais personalizada!!");
-let nomeBemVido;
+let nomeBemVido = window.prompt("Informe o seu nome para uma experiência mais personalizada!!");
+// let nomeBemVido;
 const nomeP = document.querySelector("#h1-msg");
 if (nomeBemVido == null || nomeBemVido == ""){
     nomeBemVido = 'Visitante';
 }
 nomeP.innerHTML += `, ${nomeBemVido}!`;
+
+let boraAudio = window.confirm("Vai uma musiquinha??");
+let audio = new Audio('assets/audio/audio.mp3');
+let tocando = false;
+if (boraAudio){
+  playAudio();
+}
+function playAudio(){
+  if (!tocando){
+    audio.play();
+    tocando = true;
+  } else {
+    audio.pause();
+    audio.currentTime = 0;
+    tocando = false;
+  }
+}
 
 
 function criaItem(obj, texture){
