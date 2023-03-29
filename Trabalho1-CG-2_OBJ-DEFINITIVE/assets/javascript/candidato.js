@@ -69,7 +69,7 @@ function main(){
   if (boraAudio){
     playAudio();
   }
-  for (let i = 0; i<0; i++){
+  for (let i = 0; i<10; i++){
     let name = `#canvas${i}`;
     let objPath;
     let pngPath;
@@ -90,7 +90,7 @@ function main(){
       case 2: objPath = "assets/obj/costerGuard/hc.obj";
               pngPath = "assets/obj/costerGuard/hcA.png";
               orientation = 270;
-              initialScale = [0.001, 0.001, 0.001];
+              initialScale = [1, 1, 1];
       break;
       case 3: objPath = "assets/obj/fighter/fgt.obj";
               pngPath = "assets/obj/fighter/fgtA.png";
@@ -110,7 +110,7 @@ function main(){
     }
     draw(name, objPath, pngPath, orientation, initialScale, i, animate);
   }
-  for (let i = 3; i<4; i++){
+  for (let i = 0; i<5; i++){
     let nameItem = `#item-canvas${i}`;
     let objPath;
     let pngPath;
