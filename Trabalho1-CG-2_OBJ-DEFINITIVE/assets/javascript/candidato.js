@@ -92,7 +92,7 @@ function main(){
       break;
       case 3: objPath = "assets/obj/fighter/fgt.obj";
               pngPath = "assets/obj/fighter/fgtA.png";
-              orientation = 270;
+              orientation = 0;
               initialScale = [1, 1, 1];
       break;
       case 4: objPath = "assets/obj/Heli3/Mi28.obj";
@@ -108,7 +108,7 @@ function main(){
     }
     draw(name, objPath, pngPath, orientation, initialScale, i, animate);
   }
-  for (let i = 4; i<5; i++){
+  for (let i = 3; i<4; i++){
     let nameItem = `#item-canvas${i}`;
     let objPath;
     let pngPath;
@@ -133,7 +133,7 @@ function main(){
       break;
       case 3: objPath = "assets/obj/fighter/fgt.obj";
               pngPath = "assets/obj/fighter/fgtA.png";
-              orientation = 270;
+              orientation = 0;
               initialScale = [1, 1, 1];
       break;
       case 4: objPath = "assets/obj/Heli3/Mi28.obj";
@@ -318,7 +318,12 @@ async function draw(name, objPath, pngPath, orientation, initialScale, i, animat
         ui.value *= 6;
       }
       if (i == 3){
-        ui.value /= 18;
+        ui.value /= 6;
+        if (index == 1){
+          ind = 2;
+        }if (index == 2){
+          ind = 1;
+        }
       }
       if (i == 4){
         ui.value /= 20;
@@ -691,9 +696,11 @@ async function drawCar() {
         m4.translate(u_world, 20, 4, -1.4, u_world);
       }
       if (itensCarrinho[i].obj == "assets/obj/fighter/fgt.obj"){
-        m4.xRotate(u_world, degToRad(270), u_world);
-        m4.translate(u_world, 2, 1, -1, u_world);
-        m4.zRotate(u_world, degToRad(180), u_world);
+        m4.xRotate(u_world, degToRad(0), u_world);
+        m4.translate(u_world, 2, 0, 0, u_world);
+        m4.scale(u_world, 0.25, 0.25, 0.25, u_world);
+        m4.zRotate(u_world, degToRad(0), u_world);
+        m4.yRotate(u_world, degToRad(90), u_world);
       }
       if (itensCarrinho[i].obj == "assets/obj/airplane2/jp.obj"){
         m4.yRotate(u_world, degToRad(90), u_world);

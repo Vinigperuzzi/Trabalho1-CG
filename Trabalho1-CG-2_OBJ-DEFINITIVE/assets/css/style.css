@@ -39,6 +39,11 @@ body {
     cursor: pointer;
 }
 
+#musica:active{
+    background: black;
+    margin-top: 71.5vh;
+}
+
 #background {
     position: fixed;
     width: 100vw;
@@ -364,10 +369,11 @@ Lógica do UI
 .cor:hover{
     cursor: pointer;
 }
+
 .selecione{
     margin-left: 5%;
     width: 90%;
-    margin-top: 1vh;
+    margin-top: 3vh;
     background: var(--dark-color);
     color: white;
     text-align: center;
