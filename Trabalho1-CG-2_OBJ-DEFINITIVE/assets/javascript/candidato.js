@@ -55,9 +55,9 @@ let texturaGlobal = ["assets/obj/airplane1/apA.png",
                   "assets/obj/Heli3/Mi28A.png"];
 
 
-function atualizaTextura(canvas, obj, textura, index, rot, esc){
+function atualizaTextura(canvas, obj, textura, index, rot, rotY, esc){
   texturaGlobal[index] = textura;
-  draw(canvas, obj, texturaGlobal[index], rot, esc, index, false);
+  draw(canvas, obj, texturaGlobal[index], rot, rotY, esc, index, false);
 }
 
 let mutex = false;
@@ -74,7 +74,7 @@ function main(){
     let objPath;
     let pngPath;
     let orientation;
-    let orientationY = 0;
+    let orientationY = 90;
     let initialScale = [1, 1, 1];
     let animate = true;
     switch (i%5){
