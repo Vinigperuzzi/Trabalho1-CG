@@ -4,16 +4,14 @@ let nomeBemVido = window.prompt("Informe o seu nome para uma experiência mais p
 // let nomeBemVido;
 const nomeP = document.querySelector("#h1-msg");
 if (nomeBemVido == null || nomeBemVido == ""){
-    nomeBemVido = 'Visitante';
+  nomeBemVido = 'Visitante';
 }
 nomeP.innerHTML += `, ${nomeBemVido}!`;
 
-let boraAudio = window.confirm("Vai uma musiquinha??");
 let audio = new Audio('assets/audio/audio.mp3');
+let boraAudio;
 let tocando = false;
-if (boraAudio){
-  playAudio();
-}
+
 function playAudio(){
   if (!tocando){
     audio.play();
@@ -67,6 +65,10 @@ let mutex = false;
 function main(){
   itensCarrinho.push(criaItem("assets/obj/chao/heliport.obj", "assets/obj/chao/heliport.png"));
   carrinhoQTD++;
+  boraAudio = window.confirm("Vai uma musiquinha??");
+  if (boraAudio){
+    playAudio();
+  }
   for (let i = 0; i<0; i++){
     let name = `#canvas${i}`;
     let objPath;
