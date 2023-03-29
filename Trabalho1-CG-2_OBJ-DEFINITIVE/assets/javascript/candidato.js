@@ -69,11 +69,12 @@ function main(){
   if (boraAudio){
     playAudio();
   }
-  for (let i = 0; i<10; i++){
+  for (let i = 0; i<0; i++){
     let name = `#canvas${i}`;
     let objPath;
     let pngPath;
     let orientation;
+    let orientationY = 0;
     let initialScale = [1, 1, 1];
     let animate = true;
     switch (i%5){
@@ -89,7 +90,7 @@ function main(){
       break;
       case 2: objPath = "assets/obj/costerGuard/hc.obj";
               pngPath = "assets/obj/costerGuard/hcA.png";
-              orientation = 270;
+              orientation = 0;
               initialScale = [1, 1, 1];
       break;
       case 3: objPath = "assets/obj/fighter/fgt.obj";
@@ -100,21 +101,24 @@ function main(){
       case 4: objPath = "assets/obj/Heli3/Mi28.obj";
               pngPath = "assets/obj/Heli3/Mi28A.png";
               orientation = 0;
+              orientationY = 0;
               initialScale = [1, 1, 1];
       break;
       default:  objPath = "assets/obj/Heli3/Mi28.obj";
                 pngPath = "assets/obj/Heli3/Mi28A.png";
                 orientation = 0;
+                orientationY = 0;
                 initialScale = [1, 1, 1];
       break;
     }
-    draw(name, objPath, pngPath, orientation, initialScale, i, animate);
+    draw(name, objPath, pngPath, orientation, orientationY, initialScale, i, animate);
   }
   for (let i = 0; i<5; i++){
     let nameItem = `#item-canvas${i}`;
     let objPath;
     let pngPath;
     let orientation;
+    let orientationY = 90;
     let initialScale = [1, 1, 1];
     let animate = false;
     switch (i%5){
@@ -130,7 +134,7 @@ function main(){
       break;
       case 2: objPath = "assets/obj/costerGuard/hc.obj";
               pngPath = "assets/obj/costerGuard/hcA.png";
-              orientation = 270;
+              orientation = 0;
               initialScale = [1, 1, 1];
       break;
       case 3: objPath = "assets/obj/fighter/fgt.obj";
@@ -141,21 +145,23 @@ function main(){
       case 4: objPath = "assets/obj/Heli3/Mi28.obj";
               pngPath = "assets/obj/Heli3/Mi28A.png";
               orientation = 0;
+              orientationY = 0;
               initialScale = [1, 1, 1];
       break;
       default:  objPath = "assets/obj/Heli3/Mi28.obj";
                 pngPath = "assets/obj/Heli3/Mi28A.png";
                 orientation = 0;
+                orientationY = 0;
                 initialScale = [1, 1, 1];
       break;
     }
-    draw(nameItem, objPath, pngPath, orientation, initialScale, i, animate);
+    draw(nameItem, objPath, pngPath, orientation, orientationY, initialScale, i, animate);
   }
   carrinho();
 }
 
 
-async function draw(name, objPath, pngPath, orientation, initialScale, i, animate) {
+async function draw(name, objPath, pngPath, orientation, orientationY, initialScale, i, animate) {
   // Get A WebGL context
   /** @type {HTMLCanvasElement} */
   const canvas = document.querySelector(name);     //Passar isso por parâmetro
@@ -301,30 +307,51 @@ async function draw(name, objPath, pngPath, orientation, initialScale, i, animat
     return function(event, ui) {
       let ind = index;
       if (i == 0){
-        ui.value /= 50;
+        ui.value /= 25;
+        if (index == 0){
+          ind = 1;
+        }
         if (index == 1){
           ind = 2;
-        }if (index == 2){
-          ind = 1;
+        }
+        if (index == 2){
+          ind = 0;
         }
       }
       if (i == 1){
         ui.value /= 16;
+        if (index == 0){
+          ind = 1;
+        }
         if (index == 1){
           ind = 2;
-        }if (index == 2){
-          ind = 1;
+        }
+        if (index == 2){
+          ind = 0;
         }
       }
       if (i == 2){
-        ui.value *= 6;
+        ui.value /= 20;
+        if (index == 0){
+          ind = 1;
+        }
+        if (index == 1){
+          ind = 2;
+        }
+        if (index == 2){
+          ind = 0;
+        }
       }
       if (i == 3){
         ui.value /= 6;
+        if (index == 0){
+          ind = 1;
+        }
         if (index == 1){
           ind = 2;
-        }if (index == 2){
-          ind = 1;
+        }
+        if (index == 2){
+          ind = 0;
         }
       }
       if (i == 4){
@@ -348,14 +375,6 @@ async function draw(name, objPath, pngPath, orientation, initialScale, i, animat
       rotation[index] = angleInRadians;
       requestAnimationFrame(render);
       mutex = true;
-    };
-  }
-
-  function updateScale(index) {
-    return function(event, ui) {
-      scale[index] = ui.value;
-      mutex = true;
-      requestAnimationFrame(render);
     };
   }
 
@@ -401,7 +420,8 @@ async function draw(name, objPath, pngPath, orientation, initialScale, i, animat
     
     let u_world = m4.yRotation(time);
     u_world = m4.translate(u_world, ...objOffset);
-    m4.xRotate(u_world, degToRad(orientation), u_world);                          //Sets initial orientation
+    m4.xRotate(u_world, degToRad(orientation), u_world); 
+    m4.yRotate(u_world, degToRad(orientationY), u_world);                         //Sets initial orientation
     m4.scale(u_world, initialScale[0], initialScale[1], initialScale[2], u_world);//sets initial scale
     m4.translate(u_world, translation[0], translation[2], translation[1], u_world);
     m4.xRotate(u_world, rotation[0], u_world);
@@ -664,7 +684,7 @@ async function drawCar() {
 
     const up = [0, 1, 0];
     // Compute the camera's matrix using look at.
-    const camera = m4.lookAt(cameraPosition, [((carrinhoQTD-1) * 2.5), 0, 0], up);    //Camera look fez todo o sentido aqui=========================================================
+    const camera = m4.lookAt(cameraPosition, [((carrinhoQTD) * 4), 0, 0], up);    //Camera look fez todo o sentido aqui=========================================================
 
     // Make a view matrix from the camera matrix.
     const view = m4.inverse(camera);
@@ -687,7 +707,7 @@ async function drawCar() {
       let u_world = m4.yRotation(time);
       m4.xRotate(u_world, degToRad(0), u_world);                          //Sets initial orientation
       m4.scale(u_world, scale[0], scale[1], scale[2], u_world);//sets initial scale
-      m4.translate(u_world, translation[0]+(i*6), translation[2], translation[1], u_world);
+      m4.translate(u_world, translation[0]+(i*8), translation[2], translation[1], u_world);
       m4.xRotate(u_world, rotation[0], u_world);
       m4.yRotate(u_world, rotation[1], u_world);
       m4.zRotate(u_world, rotation[2], u_world);
@@ -699,24 +719,22 @@ async function drawCar() {
       }
       if (itensCarrinho[i].obj == "assets/obj/fighter/fgt.obj"){
         m4.xRotate(u_world, degToRad(0), u_world);
-        m4.translate(u_world, 2, 0, 0, u_world);
         m4.scale(u_world, 0.25, 0.25, 0.25, u_world);
         m4.zRotate(u_world, degToRad(0), u_world);
         m4.yRotate(u_world, degToRad(90), u_world);
       }
       if (itensCarrinho[i].obj == "assets/obj/airplane2/jp.obj"){
-        m4.yRotate(u_world, degToRad(90), u_world);
-        m4.translate(u_world, 3, 0, 0, u_world);
         m4.scale(u_world, 0.5, 0.5, 0.5, u_world);
+        m4.yRotate(u_world, degToRad(90), u_world);
       }
       if (itensCarrinho[i].obj == "assets/obj/airplane1/ap.obj"){
-        m4.yRotate(u_world, degToRad(180), u_world);
-        m4.translate(u_world, -4, 0, 0, u_world);
+        m4.yRotate(u_world, degToRad(90), u_world);
       }
       if (itensCarrinho[i].obj == "assets/obj/costerGuard/hc.obj"){
-        m4.scale(u_world, 0.005, 0.005, 0.005, u_world);
-        m4.xRotate(u_world, degToRad(270), u_world);
-        m4.translate(u_world, 100, 150, 75, u_world);
+        m4.scale(u_world, 1, 1, 1, u_world);
+        m4.xRotate(u_world, degToRad(0), u_world);
+        m4.yRotate(u_world, degToRad(90), u_world);
+        m4.translate(u_world, 0, 1.3, 3, u_world);
       }
       gl.bindTexture(gl.TEXTURE_2D, texture[i]);//FOIIIIIIIIIIII PORRAAAAAA!!!!!!!!! ERA AQUIIIIIIIIII!!!!!!!! AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!! PORRAAAAAAAAAAAAAAAA!!!
       for (const {bufferInfo, vao, material} of globalParts[i]) {
