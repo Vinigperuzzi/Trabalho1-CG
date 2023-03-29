@@ -42,9 +42,6 @@ function pegaContexto(obj, index) {
 }
 
 function carrinho(){
-  // for (let i = 0; i<carrinhoQTD; i++){
-  //   draw2("#canvas-carrinho", itensCarrinho[i].obj, itensCarrinho[i].texture, 0, [1, 1, 1], i, false, i*3);
-  // }
   drawCar();
 }
 
@@ -65,11 +62,11 @@ let mutex = false;
 function main(){
   itensCarrinho.push(criaItem("assets/obj/chao/heliport.obj", "assets/obj/chao/heliport.png"));
   carrinhoQTD++;
-  boraAudio = window.confirm("Vai uma musiquinha??");
+  boraAudio = window.confirm("Vai uma musiquinha?? Tem botão para desligar depois...");
   if (boraAudio){
     playAudio();
   }
-  for (let i = 0; i<0; i++){
+  for (let i = 0; i<10; i++){
     let name = `#canvas${i}`;
     let objPath;
     let pngPath;
@@ -294,7 +291,6 @@ async function draw(name, objPath, pngPath, orientation, orientationY, initialSc
 
   var translation = [0, 0, 0];
   var rotation = [degToRad(0), degToRad(0), degToRad(0)];
-  var scale = [1, 1, 1];
 
   webglLessonsUI.setupSlider(`#x${i}`,      {value: translation[0], slide: updatePosition(0), min: -(gl.canvas.width), max: gl.canvas.width});
   webglLessonsUI.setupSlider(`#y${i}`,      {value: translation[1], slide: updatePosition(1), min: -(gl.canvas.height), max: gl.canvas.height});
@@ -619,7 +615,7 @@ async function drawCar() {
     const projection = m4.perspective(fieldOfViewRadians, aspect, zNear, zFar);
 
 
-     //Camera moviment fez todo o sentido aqui==================================================================================
+    //================Movimentação da câmera aqui============//
     let speedCam = 0.3;
     camY = 5;
     let camAnimate = true;
