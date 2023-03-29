@@ -706,7 +706,8 @@ async function drawCar() {
       }
       if (itensCarrinho[i].obj == "assets/obj/airplane2/jp.obj"){
         m4.yRotate(u_world, degToRad(90), u_world);
-        m4.translate(u_world, 0, 0, 4, u_world);
+        m4.translate(u_world, 3, 0, 0, u_world);
+        m4.scale(u_world, 0.5, 0.5, 0.5, u_world);
       }
       if (itensCarrinho[i].obj == "assets/obj/airplane1/ap.obj"){
         m4.yRotate(u_world, degToRad(180), u_world);
