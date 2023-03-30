@@ -66,7 +66,7 @@ function main(){
   if (boraAudio){
     playAudio();
   }
-  for (let i = 0; i<10; i++){
+  for (let i = 0; i<0; i++){
     let name = `#canvas${i}`;
     let objPath;
     let pngPath;
@@ -110,7 +110,7 @@ function main(){
     }
     draw(name, objPath, pngPath, orientation, orientationY, initialScale, i, animate);
   }
-  for (let i = 0; i<5; i++){
+  for (let i = 0; i<0; i++){
     let nameItem = `#item-canvas${i}`;
     let objPath;
     let pngPath;
@@ -373,15 +373,14 @@ async function draw(name, objPath, pngPath, orientation, orientationY, initialSc
       mutex = true;
     };
   }
-
-  function render(time) {
-    let speed;
+  //let time = performance.now() / 1000 / 6 * 2 * Math.PI;
+  function render() {
+    let time;
     if (animate){
-      speed = 0.001;
+      time = performance.now() / 1000 / 6 * 2 * Math.PI;
     } else {
-      speed = 0;
+      time = 0;
     }
-    time *= speed;  // convert to seconds
 
     twgl.resizeCanvasToDisplaySize(gl.canvas);
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
@@ -594,15 +593,7 @@ async function drawCar() {
 
   requestAnimationFrame(render);
 
-  function render(time) {
-    let animate = false;
-    let speed;
-    if (animate){
-      speed = 0.001;
-    } else {
-      speed = 0;
-    }
-    time *= speed;  // convert to seconds
+  function render() {
 
     twgl.resizeCanvasToDisplaySize(gl.canvas);
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
@@ -616,7 +607,7 @@ async function drawCar() {
 
 
     //================Movimentação da câmera aqui============//
-    let speedCam = 0.3;
+    let speedCam = 0.2;
     camY = 5;
     let camAnimate = true;
     if (camAnimate){
@@ -700,7 +691,7 @@ async function drawCar() {
       twgl.setUniforms(meshProgramInfo, sharedUniforms);
       // compute the world matrix once since all parts
       // are at the same space.
-      let u_world = m4.yRotation(time);
+      let u_world = m4.yRotation(0);
       m4.xRotate(u_world, degToRad(0), u_world);                          //Sets initial orientation
       m4.scale(u_world, scale[0], scale[1], scale[2], u_world);//sets initial scale
       m4.translate(u_world, translation[0]+(i*8), translation[2], translation[1], u_world);
