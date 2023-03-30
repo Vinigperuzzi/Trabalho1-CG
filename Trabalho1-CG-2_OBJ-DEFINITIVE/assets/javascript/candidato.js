@@ -47,7 +47,7 @@ function carrinho(){
 function removeCarrinho(){
   let posicao = window.prompt("Qual Aeronave?");
   while (posicao < 1 || posicao >= carrinhoQTD){
-    posicao = window.prompt("Qual Aeronave?");
+    posicao = window.prompt("Fora de alcance, informe um valor válido: Qual Aeronave?");
   }
 
   itensCarrinho[posicao].obj = itensCarrinho[carrinhoQTD-1].obj;
