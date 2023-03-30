@@ -44,6 +44,21 @@ function pegaContexto(obj, index) {
 function carrinho(){
   drawCar();
 }
+function removeCarrinho(){
+  let posicao = window.prompt("Qual Aeronave?");
+  while (posicao < 1 || posicao >= carrinhoQTD){
+    posicao = window.prompt("Qual Aeronave?");
+  }
+
+  itensCarrinho[posicao].obj = itensCarrinho[carrinhoQTD-1].obj;
+  itensCarrinho[posicao].texture = itensCarrinho[carrinhoQTD-1].texture;
+
+  carrinhoQTD--;
+  itensCarrinho.pop();
+  console.log(itensCarrinho);
+  console.log(carrinhoQTD);
+  carrinho();
+}
 
 let texturaGlobal = ["assets/obj/airplane1/apA.png",
                   "assets/obj/airplane2/jpA.png",
@@ -66,7 +81,7 @@ function main(){
   if (boraAudio){
     playAudio();
   }
-  for (let i = 0; i<0; i++){
+  for (let i = 0; i<10; i++){
     let name = `#canvas${i}`;
     let objPath;
     let pngPath;
@@ -110,7 +125,7 @@ function main(){
     }
     draw(name, objPath, pngPath, orientation, orientationY, initialScale, i, animate);
   }
-  for (let i = 0; i<0; i++){
+  for (let i = 0; i<5; i++){
     let nameItem = `#item-canvas${i}`;
     let objPath;
     let pngPath;
