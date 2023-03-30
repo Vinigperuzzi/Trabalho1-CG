@@ -649,6 +649,8 @@ async function drawCar() {
         camX += speedCam;
       }
 
+      //===============================================
+
       // if (camX > 30){
       //   volta = 1;
       // }
@@ -666,6 +668,26 @@ async function drawCar() {
       // if (radius > 20){
       //   radius = 16;
       // }
+
+      //===========================================
+
+      // if(camX > 180){
+      //     camX -= speedCam;
+      //     volta = 2;
+      //   }
+      // if (camX < -180){
+      //   camX += speedCam;
+      //   volta = 1;
+      // }
+      // if (volta == 2){
+      //   camX -= speedCam;
+      // }
+      // if (volta == 1){
+      //   camX += speedCam;
+      // }
+      // //x² + y² = r²
+      // //y² = r² - x²
+      // camZ = Math.sqrt((radius**2) - (camX**2));
     }
     cameraPosition = m4.addVectors([((carrinhoQTD-1) * 4), 0, 0], [camX, camY, camZ,]);//camZ*radius para o cosseno
 
