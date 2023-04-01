@@ -72,8 +72,6 @@ function atualizaTextura(canvas, obj, textura, index, rot, rotY, esc){
   draw(canvas, obj, texturaGlobal[index], rot, rotY, esc, index, false);
 }
 
-let mutex = false;
-
 function main(){
   itensCarrinho.push(criaItem("assets/obj/chao/heliport.obj", "assets/obj/chao/heliport.png"));
   carrinhoQTD++;
@@ -374,7 +372,6 @@ async function draw(name, objPath, pngPath, orientation, orientationY, initialSc
         }
       }
       translation[ind] = ui.value;
-      mutex = true;
       requestAnimationFrame(render);
     };
   }
@@ -385,7 +382,6 @@ async function draw(name, objPath, pngPath, orientation, orientationY, initialSc
       var angleInRadians = degToRad(angleInDegrees);
       rotation[index] = angleInRadians;
       requestAnimationFrame(render);
-      mutex = true;
     };
   }
   //let time = performance.now() / 1000 / 6 * 2 * Math.PI;
@@ -450,10 +446,7 @@ async function draw(name, objPath, pngPath, orientation, orientationY, initialSc
       twgl.drawBufferInfo(gl, bufferInfo);
     }
     
-    if (!mutex) {
-      requestAnimationFrame(render);
-    }
-    mutex = false;
+    requestAnimationFrame(render);
   }
   requestAnimationFrame(render);
 }
