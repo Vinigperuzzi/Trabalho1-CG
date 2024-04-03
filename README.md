@@ -24,4 +24,5 @@ Interaja com os modelos 3D gerados em tempo real utilizando WebGL.
 
 Aproveite a jornada de compras 3D!
 
-### Vinigperuzzi
+Happy Coding! 
+### Vinigperuzzi 🧙‍♂️
